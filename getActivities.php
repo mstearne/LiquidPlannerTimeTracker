@@ -2,8 +2,6 @@
 
 <link rel="stylesheet" href="js/chosen_v1/chosen.css">
 
-<!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script> -->
-
 
 </head>
 <body>
