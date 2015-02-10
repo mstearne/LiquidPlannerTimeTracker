@@ -23,8 +23,7 @@
 <script src="js/bootstrap-dialog.min.js"></script>
 
 <link rel="stylesheet" href="js/chosen_v1/chosen.css">
-  <script src="js/jquery.popupWindow.js" type="text/javascript"></script>
-
+ 
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>

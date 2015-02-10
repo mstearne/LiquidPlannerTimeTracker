@@ -16,8 +16,6 @@ if($_REQUEST['action']=="login"){
 	    $_SESSION['lpusername']=$_REQUEST['lpusername'];
 	    $_SESSION['lppassword']=$_REQUEST['lppassword'];
 	    $_SESSION['lpuserid']=$account->id;
-	    
-
 
 	    $email = $_SESSION['lpusername']; 
 	    $password = $_SESSION['lppassword']; 

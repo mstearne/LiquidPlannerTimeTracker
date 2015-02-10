@@ -550,6 +550,13 @@ outline: 0 none;
 
 	}
 
+   .glyphiconStyleSmall{
+		font-size:20px;
+		color:white;
+		display: none;
+
+	}
+
 	.glyphicon{
 			cursor: pointer;
 	}
