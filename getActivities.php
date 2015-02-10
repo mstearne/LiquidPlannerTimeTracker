@@ -1,5 +1,5 @@
 <? include_once("shared.php"); ?>
-
+<? scriptTimer("Start getActivites for submit"); ?>
 <link rel="stylesheet" href="js/chosen_v1/chosen.css">
 
 
@@ -20,12 +20,8 @@ for($i=0;$i<count($task->assignments);$i++){
 <script>
 
 $(document).ready(function () {
-
 $(".chosen-select-activities").chosen({width:"85%",no_results_text: "Oops, nothing found!"});
-
 $("#time_amt").focus();
-
-
 });	
 	
 	</script>
@@ -76,4 +72,4 @@ $("#time_amt").focus();
 
 
   <script src="js/chosen_v1/chosen.jquery.js" type="text/javascript"></script>
-
+<? scriptTimer("Finish getActivites for submit"); ?>

@@ -23,6 +23,7 @@
 <script src="js/bootstrap-dialog.min.js"></script>
 
 <link rel="stylesheet" href="js/chosen_v1/chosen.css">
+  <script src="js/jquery.popupWindow.js" type="text/javascript"></script>
 
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
@@ -34,7 +35,7 @@
 
         <div class="header-container">
             <header class="wrapper clearfix">
-                <h1 class="title"><img src="images/path-logo-small.png" alt="path-logo-small" width="" height="" /> <img src="images/lp-logo.png" alt="lp-logo" width="" height="" /> Time Tracker</h1>
+                <h1 class="title"><img src="images/path-logo-small.png" alt="path-logo-small" width="" height="" /> <img src="images/lp-logo.png" alt="lp-logo" width="" height="" /> Time Tracker <a href="/liquidplanner/time.php" title="Time Tracker" class="ttpopup glyphicon glyphicon-new-window glyphiconStyle"></a> 
 
 <div style="position: absolute; top:73px; right: 10px;"> <span style="color: white; font-size: .8em"><a href="lpLogin.php?action=logout" style="color:white">Logout <?=$_SESSION['lpusername']?> <span class="glyphicon glyphicon-log-out" style="color:white;"></span></a></span></div>
 <div align="center"><img src="images/ajax-loader.gif" id="loading-indicator" style="display:none" /></div>

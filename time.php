@@ -424,6 +424,7 @@ function openFile(file,taskID,documentID) {
 	
 $(document).ready (function () {
 
+
 	
 	<? if($_REQUEST['message']){ ?>
 	/// display some feedback message after the reload
@@ -436,9 +437,7 @@ $(document).ready (function () {
 	
 	<? } ?>
 	
-	
-//	$("#realtimelabel").html("<?=$running_timer_label?>");
-	
+		
 	$("#project_id").change(function(){
 		change_project();
 	});
@@ -473,6 +472,9 @@ $(document).ready (function () {
 	  $("#timer_feedback").fadeOut(4000);
 	  
 	});
+
+$('.ttpopup').popupWindow({ height:800, width:400, top:0, left:50 }); 
+
 
 });
 
