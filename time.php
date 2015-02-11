@@ -433,7 +433,7 @@ function openFile(file,taskID,documentID) {
 	
 $(document).ready (function () {
 
-$('#ttpopup').popupWindow({ height:900, width:575, top:0, left:0 }); 
+$('#ttpopup').popupWindow({ height:900, width:575, top:0, left:0, scrollbars:1,resizable:1 }); 
 
 
 	
