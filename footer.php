@@ -19,6 +19,7 @@
         <script src="js/main.js"></script>
 
   <script src="js/chosen_v1/chosen.jquery.js" type="text/javascript"></script>
+  <script src="js/jquery.popupWindow.js" type="text/javascript"></script>
 
   <script type="text/javascript">
 /*

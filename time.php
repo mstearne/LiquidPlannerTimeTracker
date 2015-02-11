@@ -213,19 +213,26 @@ function testGlobal(){
 
 }
 
-<? if($gotAnyTimer){ ?> 
-<?	if($running_timer_id){ ?>
-	startupTask=<?=$running_timer_id?>;
-<?	}else{ 
-		if($any_timer_id){
-			?>
-			startupTask=<?=$any_timer_id?>;
-<?			
-		}
-?>
-<? } ?>
-<? } ?>
+<? if($_REQUEST['task_id']){ ?>
 
+		startupTask='<?=$_REQUEST['task_id']?>';
+		<?
+		$lp->post("/workspaces/{$lp->workspace_id}/tasks/".$_REQUEST['task_id']."/timer/start","");
+?>
+<? }else{ ?>
+	<? if($gotAnyTimer){ ?> 
+	<?	if($running_timer_id){ ?>
+		startupTask=<?=$running_timer_id?>;
+	<?	}else{ 
+			if($any_timer_id){
+				?>
+				startupTask=<?=$any_timer_id?>;
+	<?			
+			}
+	?>
+	<? } ?>
+	<? } ?>
+<? } ?>
 	
 	function change_project(){
 		
@@ -281,6 +288,7 @@ function openFile(file,taskID,documentID) {
         case 'rar':
         	return '<img src="https://app.liquidplanner.com/assets/icons/zip_file-0bbfaaf53712307f1bbae557ae495ec9.png">';
         break;
+        case 'psd':
         case 'pdf':
         	return '<img src="https://app.liquidplanner.com/assets/icons/pdf_file-daf4a4a712045875887b260bc0cbc75c.png">';
         break;
@@ -297,7 +305,7 @@ function openFile(file,taskID,documentID) {
         	return '<img src="https://app.liquidplanner.com/assets/icons/ppt_file-a0e4aa1ad371096946fb2d963784c61e.png">';
         break;
         default:
-            alert('who knows');
+        	return '<img src="https://app.liquidplanner.com/assets/icons/pdf_file-daf4a4a712045875887b260bc0cbc75c.png">';
     }
 };
 
@@ -394,29 +402,30 @@ function openFile(file,taskID,documentID) {
 		success: function(html)
 		{
 			$("#timer_feedback").html(html);
-
-			$.ajax
-			({
-			type: "POST",
-			url: "getUnsubmittedTime.php",
-			cache: false,
-			dataType: "text",
-			success: function(html)
-			{
-				//								alert(html)
-				if(html!="false"){
-					$("#unsubmitted-time").hide();
-					$("#unsubmitted-time-body").show();
-					$("#unsubmitted-time-body").html(html);
-					$("#unsubmitted-time").fadeIn(250);
-				}else{
-					$("#unsubmitted-time").hide();
-					$("#unsubmitted-time-body").html("");
-				}
-			} 
-			});
 		} 
 		});
+
+		$.ajax
+		({
+		type: "POST",
+		url: "getUnsubmittedTime.php",
+		cache: false,
+		dataType: "text",
+		success: function(html)
+		{
+			//								alert(html)
+			if(html!="false"){
+				$("#unsubmitted-time").hide();
+				$("#unsubmitted-time-body").show();
+				$("#unsubmitted-time-body").html(html);
+				$("#unsubmitted-time").fadeIn(250);
+			}else{
+				$("#unsubmitted-time").hide();
+				$("#unsubmitted-time-body").html("");
+			}
+		} 
+		});
+
 
 		currentTask=$("#task_id").val();
 	
@@ -424,12 +433,8 @@ function openFile(file,taskID,documentID) {
 	
 $(document).ready (function () {
 
-$('.ttpopup').popupWindow({ 
-height:800, 
-width:400, 
-top:0, 
-left:50 
-}); 
+$('#ttpopup').popupWindow({ height:900, width:575, top:0, left:0 }); 
+
 
 	
 	<? if($_REQUEST['message']){ ?>
@@ -484,6 +489,9 @@ left:50
 });
 
 
+
+
+
 	$('#startButton').click(function() {
 //		$('#runner').runner('stop');
 		$('#runner').runner('start');
@@ -529,13 +537,13 @@ left:50
 	$('#submitButton').click(function() {
 		$('#runner').runner('stop');
 		console.log($('#runner').runner('info'));
-//		$('#runner').hide();
 		$('#startButton').show();
 		$('#submitButton').hide();
 		$('#pauseButton').hide();
-//		$('#timer_feedback').html(currentTask);
 		$('#timer_feedback').show();
 		$("#timer_feedback").fadeOut(3000);
+		$("#runner").fadeTo( 100, 0.01 );
+		
 
 		$.ajax
 		({
@@ -553,7 +561,7 @@ left:50
 			BootstrapDialog.show({
 				title: 'Log time for <strong>'+$('#task_id option:selected').text()+'</strong>',
 	            message: function(dialog) {
-	                var $message = $('<div></div>');
+	                var $message = $('<div><img src="images/ajax-loader-black.gif" /> Please wait...</div>');
 	                var pageToLoad = dialog.getData('pageToLoad');
 	                $message.load(pageToLoad);
 	                return $message;
@@ -573,6 +581,7 @@ left:50
 					$('#startButton').hide();
 					$('#pauseButton').show();
 					$('#submitButton').show();
+					$("#runner").fadeTo( 100, 1 );
 
 					console.log($('#runner').runner('info'));
 

@@ -2,7 +2,23 @@
 <?
 
 
-      $task=$lp->get("/workspaces/{$lp->workspace_id}/tasks/".$_REQUEST['task_id']."?include=comments,documents,timer&order=updated_at");
+		///// ------------------------------------ /////
+		$cacheTmp=$pageCache=false;
+		$cacheSnippetName="taskData-".$_REQUEST['task_id'];
+//		$cacheSnippetName=md5($cacheSnippetName);
+		if($pageCache=@file_get_contents("cache/$cacheSnippetName")==false){
+			///// -----------Start Code-------------- /////
+			$task=$lp->get("/workspaces/{$lp->workspace_id}/tasks/".$_REQUEST['task_id']."?include=comments,documents,timer&order=updated_at");
+			///// -----------End Code-------------- /////
+// disabled we can't continue timers like this			file_put_contents("cache/$cacheSnippetName", json_encode($task));
+		}else{
+			/// Show existing cache file  
+			$pageCache=file_get_contents("cache/$cacheSnippetName");
+			$task=json_decode($pageCache);
+		}
+		///// ------------------------------------ /////
+
+      
 
 $taskJSON=json_encode($task);
 

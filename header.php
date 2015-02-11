@@ -34,24 +34,14 @@
 
         <div class="header-container">
             <header class="wrapper clearfix">
-                <h1 class="title"><img src="images/path-logo-small.png" alt="path-logo-small" width="" height="" /> <img src="images/lp-logo.png" alt="lp-logo" width="" height="" /> Time Tracker <a href="/liquidplanner/time.php" title="Time Tracker" class="ttpopup glyphicon glyphicon-new-window glyphiconStyle"></a> 
-
-<div style="position: absolute; top:73px; right: 10px;"> <span style="color: white; font-size: .8em"><a href="lpLogin.php?action=logout" style="color:white">Logout <?=$_SESSION['lpusername']?> <span class="glyphicon glyphicon-log-out" style="color:white;"></span></a></span></div>
+                <h1 class="title"><img src="images/path-logo-small.png" alt="path-logo-small" width="" height="" style="left:0px;top:0px;" /> <img src="images/lp-logo.png" alt="lp-logo" width="" height="" id="lplogo" /> Time Tracker &nbsp;&nbsp;&nbsp;&nbsp;<a href="/liquidplanner/time.php" title="Time Tracker" id="ttpopup" class="glyphicon glyphicon-new-window glyphiconStyleSmall" onclick="location.href='index.php'"></a> 
+<div style="position: absolute; top:63px; right: 10px;"> <span style="color: white; font-size: .5em"><a href="lpLogin.php?action=logout" style="color:white">Logout <?=$_SESSION['lpusername']?> <span class="glyphicon glyphicon-log-out" style="color:white;"></span></a></span></div>
 <div align="center"><img src="images/ajax-loader.gif" id="loading-indicator" style="display:none" /></div>
 
-<!--
-                <nav>
-                    <ul>
-                        <li><a href="#">nav ul li a</a></li>
-                        <li><a href="#">nav ul li a</a></li>
-                        <li><a href="#">nav ul li a</a></li>
-                    </ul>
-                </nav>
--->
 
             </header>
         </div>
 
         <div class="main-container">
             <div class="main wrapper clearfix">
-	            <div style="position: absolute; top:15px; right: 10px; color: white; text-transform: capitalize" class="text-glow" id="timer_feedback"></div>
+	            <div class="text-glow" id="timer_feedback"></div>
