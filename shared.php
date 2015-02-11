@@ -34,6 +34,7 @@ if($_SESSION['lpuserid']){
     }
     if($workspaces->error=="Throttled"){
 	    print "Throttled. Try again or <a href='mailto:mstearne@pathinteractive.com?subject=LP Throttled'>contact support</a>.";
+   		scriptTimer("Throttled for $email");
 	    exit();
     }
 //    print_r($workspaces);
