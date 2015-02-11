@@ -14,7 +14,9 @@
             </footer>
         </div>
 
-<!--         <script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"><\/script>')</script> -->
+
+<iframe marginwidth="0" marginheight="0" width="1" height="1" scrolling="no" frameborder=0 src="stayLoggedIn.php">
+</iframe>
 
         <script src="js/main.js"></script>
 

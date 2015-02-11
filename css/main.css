@@ -442,7 +442,7 @@ nav a:hover {
     font-family: "lato", sans-serif;
     font-size: 18px;
 }
-
+ 
 
 .styled-select select:focus {
 	outline: none;
@@ -456,8 +456,8 @@ nav a:hover {
 
 #loading-indicator {
   position: absolute;
-  left: 10px;
-  top: 10px;
+  left: 26px;
+  top: 18px;
 }
 
 

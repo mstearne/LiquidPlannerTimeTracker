@@ -9,7 +9,6 @@
         <title>Path Liquid Planner Time Tracker</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta http-equiv="refresh" content="540">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<script src="js/bootstrap.min.js"></script>
@@ -36,7 +35,7 @@
             <header class="wrapper clearfix">
                 <h1 class="title"><img src="images/path-logo-small.png" alt="path-logo-small" width="" height="" style="left:0px;top:0px;" /> <img src="images/lp-logo.png" alt="lp-logo" width="" height="" id="lplogo" /> Time Tracker &nbsp;&nbsp;&nbsp;&nbsp;<a href="/liquidplanner/time.php" title="Time Tracker" id="ttpopup" class="glyphicon glyphicon-new-window glyphiconStyleSmall" onclick="location.href='index.php'"></a> 
 <div style="position: absolute; top:63px; right: 10px;"> <span style="color: white; font-size: .5em"><a href="lpLogin.php?action=logout" style="color:white">Logout <?=$_SESSION['lpusername']?> <span class="glyphicon glyphicon-log-out" style="color:white;"></span></a></span></div>
-<div align="center"><img src="images/ajax-loader.gif" id="loading-indicator" style="display:none" /></div>
+<div align="center"><img src="images/ajax-loader.gif" width="39" id="loading-indicator" style="display:none" /></div>
 
 
             </header>
