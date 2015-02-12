@@ -14,5 +14,8 @@ $lp->post("/workspaces/{$lp->workspace_id}/tasks/".$_REQUEST['task_id']."/timer/
 
 $lp->post("/workspaces/{$lp->workspace_id}/tasks/".$_REQUEST['task_id']."/track_time",array("activity_id"=>$_REQUEST['activity_id'],"member_id"=>$member_id,"note"=>$_REQUEST['log_comment'],"work"=>$_REQUEST['work'], "work_performed_on"=>$_REQUEST['work_performed_on']));
 
-print number_format($_REQUEST['work'],4)."h submitted";
+if($_REQUEST['mark_done']==1){
+	$lp->post("/workspaces/{$lp->workspace_id}/tasks/".$_REQUEST['task_id'],array("is_done"=>1));
+}
+print number_format($_REQUEST['work'],3)." hours submitted";
 ?>

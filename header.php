@@ -1,4 +1,8 @@
-<? scriptTimer(); ?><!DOCTYPE html>
+<? 
+	if(function_exists('scriptTimer')){
+		scriptTimer();
+	}
+?><!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -8,7 +12,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Path Liquid Planner Time Tracker</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+         <meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<script src="js/bootstrap.min.js"></script>
@@ -20,6 +24,7 @@
 <script src="js/jquery.runner.js"></script>
 <link href="css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
 <script src="js/bootstrap-dialog.min.js"></script>
+<script src="js/jquery-dateFormat.min.js"></script>
 
 <link rel="stylesheet" href="js/chosen_v1/chosen.css">
  
@@ -33,9 +38,12 @@
 
         <div class="header-container">
             <header class="wrapper clearfix">
-                <h1 class="title"><img src="images/path-logo-small.png" alt="path-logo-small" width="" height="" style="left:0px;top:0px;" /> <img src="images/lp-logo.png" alt="lp-logo" width="" height="" id="lplogo" /> Time Tracker &nbsp;&nbsp;&nbsp;&nbsp;<a href="/liquidplanner/time.php" title="Time Tracker" id="ttpopup" class="glyphicon glyphicon-new-window glyphiconStyleSmall" onclick="location.href='index.php'"></a> 
-<div style="position: absolute; top:63px; right: 10px;"> <span style="color: white; font-size: .5em"><a href="lpLogin.php?action=logout" style="color:white">Logout <?=$_SESSION['lpusername']?> <span class="glyphicon glyphicon-log-out" style="color:white;"></span></a></span></div>
-<div align="center"><img src="images/ajax-loader.gif" width="39" id="loading-indicator" style="display:none" /></div>
+                <h1 class="title">
+	                <div style="width:34px;height:34px;display:inline"><img src="images/path-logo-small.png"></div>
+	                
+	                <span class="hidden-xs"><img src="images/lp-logo.png" alt="lp-logo" width="" height="" id="lplogo" /></span> Time Tracker <span class="hidden-xs">&nbsp;&nbsp;&nbsp;&nbsp;<a href="/liquidplanner/time.php" title="Time Tracker" id="ttpopup" class="glyphicon glyphicon-new-window glyphiconStyleSmall" onclick="location.href='index.php'"></a></span> <img src="images/ajax-loader.gif" width="30" id="loading-indicator" style="display:none" /></h1> 
+<div style="position: absolute; top:70px; right: 10px;"> <span class="hidden-xs"><span style="color: white; font-size: 1em"><a href="lpLogin.php?action=logout" style="color:white"><?=$_SESSION['lpusername']?></a></span></span> <span style="color: white; font-size: 1em"><a href="lpLogin.php?action=logout" style="color:white">Logout <span class="glyphicon glyphicon-log-out" style="color:white;"></span></a></span></div>
+
 
 
             </header>

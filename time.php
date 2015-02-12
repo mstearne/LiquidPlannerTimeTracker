@@ -107,7 +107,7 @@ What are you doing on the program?
 
 <!-- Button -->
 <div class="form-group">
-  <div class="col-lg-1">
+  <div class="col-sm-1">
     <button id="task_comment_button" name="task_comment_button" class="btn btn-primary">Post</button>
   </div>
 </div>
@@ -186,7 +186,7 @@ $timers=$lp->get("/workspaces/{$lp->workspace_id}/my_timers");
 //if(count($timers)>1){
 	?>
 
-<div id="unsubmitted-time" style="display: none; background-color: #ffaaaa; padding: 20px; border-radius: 5px; width: 90%"><strong>Hey. You have unsubmitted time. You should <a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/timesheet" target=_blank>view your timesheet to submit all your time.</a></strong> <br>
+<div id="unsubmitted-time" style="display: none; background-color: #ffaaaa; padding: 20px; margin-top: 10px; border-radius: 5px; width: 90%"><strong>Hey. You have unsubmitted time. You should <a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/timesheet" target=_blank>view your timesheet to submit all your time.</a></strong> <br>
 <div id="unsubmitted-time-body">
 
 </div>
@@ -316,7 +316,7 @@ function openFile(file,taskID,documentID) {
 		var commentsOutput;
 		var documentsOutput;
 
-		$("#task_link").html('<a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/projects/show/'+$("#task_id").val()+'" target=_blank><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> View in LP</a>');
+		$("#task_link").html('<a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/projects/show/'+$("#task_id").val()+'" target=_blank><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a> <span class="hidden-xs"><a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/projects/show/'+$("#task_id").val()+'" target=_blank>View in LP</a></span>');
 
 		$("#unsubmitted-time").hide();
 		$("#task_comments_post").hide();
@@ -361,7 +361,7 @@ function openFile(file,taskID,documentID) {
 
 			    commentsOutput="";
 			    for (i=0;i<taskJson.comments.length;i++) {	    
-			        commentsOutput+='<div><span class="small-date">' + taskJson.comments[i].updated_at + "</span> " + taskJson.comments[i].comment + "</div>";
+			        commentsOutput+='<div><span class="small-date">' + jQuery.format.prettyDate(taskJson.comments[i].updated_at) + "</span> " + taskJson.comments[i].comment + "</div>";
 			    }
 
 			    documentsOutput="";
@@ -433,7 +433,7 @@ function openFile(file,taskID,documentID) {
 	
 $(document).ready (function () {
 
-$('#ttpopup').popupWindow({ height:900, width:575, top:0, left:0, scrollbars:1,resizable:1 }); 
+$('#ttpopup').popupWindow({ height:1000, width:360, top:0, right:0, scrollbars:1,resizable:1 }); 
 
 
 	
@@ -621,7 +621,7 @@ $('#ttpopup').popupWindow({ height:900, width:575, top:0, left:0, scrollbars:1,r
 					({
 						type: "POST",
 						url: "submitTimer.php",
-						data: "activity_id="+$('select[name=activity_id_submit]').val()+"&task_id="+currentTask+"&time="+$('#time_amt').val()+"&log_comment="+$('#log_comment').val(),
+						data: "activity_id="+$('select[name=activity_id_submit]').val()+"&task_id="+currentTask+"&time="+$('#time_amt').val()+"&log_comment="+$('#log_comment').val()+"&mark_done="+$('#mark_done').val(),
 						cache: false,
 						success: function(html)
 						{

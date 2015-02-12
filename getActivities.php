@@ -83,6 +83,7 @@ $("#pleasewait").hide();
                 <input type="text" name="time_amt" id="time_amt" placeholder="Time to log" value="<?=$_REQUEST['time']?>" class="inputs" style="font-size: 33px"> HH:MM:SS (Edit time if necessary)
             </div>
         </div>
+        <br>
         <div class="control-group">
             <label class="control-label" for="subject">Your general activity on this task</label>
             <div class="controls">
@@ -135,6 +136,7 @@ print $pageCache;
 
             </div>
         </div>
+        <br>
         <div class="control-group">
             <label class="control-label" for="message">Timesheet note (usually not used)</label>
             <div class="controls">
@@ -142,6 +144,17 @@ print $pageCache;
                 
             </div>
         </div>
+
+<!--
+        <div class="control-group">
+            <div class="controls">Mark this task as <strong>done</strong> <input type="checkbox" value="1" name="mark_done" id="mark_done"> 
+                
+            </div>
+        </div>
+-->
+
+
+
 <!--
         <div class="form-actions">
              <button type="submit" class="btn btn-primary">Submit Time</button> 

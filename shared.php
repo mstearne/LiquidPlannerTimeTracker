@@ -178,8 +178,9 @@ class LiquidPlanner {
 
 
 function scriptTimer($label=""){
+	global $email;
 //	unlink("tmp/scriptTimer.txt");
-	file_put_contents("tmp/scriptTimer.txt", date("H:i:s").": ".$label." ".$_SERVER["REQUEST_URI"]."\n",FILE_APPEND);
+	file_put_contents("tmp/scriptTimer.txt", date("H:i:s")." ".$email.": ".$label." ".$_SERVER["REQUEST_URI"]."\n",FILE_APPEND);
 }
 
 function print_r_reverse($in) { 

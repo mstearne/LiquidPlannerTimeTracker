@@ -14,10 +14,10 @@
             </footer>
         </div>
 
-
+<? if($_SERVER['REQUEST_URI']=="/liquidplanner/time.php"){ ?>
 <iframe marginwidth="0" marginheight="0" width="1" height="1" scrolling="no" frameborder=0 src="stayLoggedIn.php">
 </iframe>
-
+<? } ?>
         <script src="js/main.js"></script>
 
   <script src="js/chosen_v1/chosen.jquery.js" type="text/javascript"></script>
@@ -49,4 +49,8 @@
 		</script>
     </body>
 </html>
-<? scriptTimer(); ?>
+<? 
+	if(function_exists('scriptTimer')){
+		scriptTimer();
+	}
+?>

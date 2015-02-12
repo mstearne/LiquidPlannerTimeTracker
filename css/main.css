@@ -135,7 +135,7 @@ nav a:hover {
    ============== */
 
 .main {
-    padding: 30px 0;
+    padding: 0px 0;
 }
 
 .main article h1 {
@@ -454,11 +454,6 @@ nav a:hover {
 	float: right;
 }
 
-#loading-indicator {
-  position: absolute;
-  left: 26px;
-  top: 18px;
-}
 
 
 
@@ -582,7 +577,7 @@ outline: 0 none;
 
 
 #timer_feedback { 
-	font-size: 1.2em;
+	font-size: 1em;
 	left:5px; 
 	position: absolute;
 	top:70px; color: white; 
@@ -592,6 +587,10 @@ outline: 0 none;
 
 
 
+div#unsubmitted-time-body ul {
+	list-style-type: none;
+	padding-left: 0;
+}
 
 
 
@@ -616,9 +615,22 @@ outline: 0 none;
 
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 480px) {
+and (min-device-width : 401px) 
+and (max-device-width : 550px) {
   /* Styles */
+	.runnerStyle{
+		font-family: sans-serif;
+		font-size: 60px;
+		top: -24px;
+		position: relative;
+	}
+	.timerDiv{
+		height: 50px;
+	}
+	.main {
+	    padding: 30px 0;
+	}
+
 }
 
 /* Smartphones (landscape) ----------- */
@@ -628,37 +640,32 @@ and (min-width : 321px) {
 }
 
 /* Smartphones (portrait) ----------- */
-@media only screen 
-and (max-width : 320px) {
+@media only screen and (max-width : 400px) {
   /* Styles */
 
 
 	.runnerStyle{
-		font-size: 48px;
 		font-family: sans-serif;
+		font-size: 50px;
+		top: -24px;
+		position: relative;
 	}
 	.timerDiv{
 		height: 50px;
 	}
+	.main {
+	    padding: 30px 0;
+	}
  
-
 
 }
 
-@media only screen 
-and (max-width : 550px) {
+
+
+@media only screen and (max-width : 550px) {
   /* Styles */
 
 #ttpopup {display: none}
-#timer_feedback { top:80px;
-	font-size: 15px;
-	left:5px; 
-	position: absolute;}
-
-#lplogo { width: 120px }
-h1 {
-	1em;
-}
 
 .timerDiv {height: 76px;}
 
