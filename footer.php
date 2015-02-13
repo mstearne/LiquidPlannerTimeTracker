@@ -10,7 +10,7 @@
 
         <div class="footer-container">
             <footer class="wrapper">
-                &copy;2015 Path Interactive &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:purple" href="mailto:mstearne@pathinteractive.com?subject=Time Tracker Bug Report">Please report any bugs</a> 
+                &copy;2015 Path Interactive - <a style="color:purple" href="mailto:mstearne@pathinteractive.com?subject=Time Tracker Bug Report">Please report any bugs</a> 
             </footer>
         </div>
 
@@ -51,6 +51,6 @@
 </html>
 <? 
 	if(function_exists('scriptTimer')){
-		scriptTimer();
+		scriptTimer("footer");
 	}
 ?>

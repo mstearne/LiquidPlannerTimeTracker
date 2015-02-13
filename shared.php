@@ -1,5 +1,6 @@
 <?
 // 		print date("s")."<br>";
+session_start();
 
 scriptTimer("in shared.php");
 
@@ -7,8 +8,6 @@ scriptTimer("in shared.php");
 $pathLPAccountEmailID="ced094287fa4ab40846c4ac26b546750";
 $LPAdminAccountUsername="mstearne@pathinteractive.com";
 $LPAdminAccountPassword="Pathinc123";
-
-session_start();
 
 
 /*
@@ -19,7 +18,7 @@ if(!$_SESSION['lpusername']&&$_SERVER["SCRIPT_NAME"]!="/liquidplanner/lpLogin.ph
 	header("Location: lpLogin.php");
 	print '<meta http-equiv="refresh" content="0; url=lpLogin.php">';
 	exit();
-}
+} 
 
 
 if($_SESSION['lpuserid']){
@@ -30,7 +29,7 @@ if($_SESSION['lpuserid']){
     $account = $lp->account();
     $workspaces = $lp->workspaces();
     if($_SERVER['REQUEST_URI']=="/liquidplanner/getComments.php"||$_SERVER['REQUEST_URI']=="/liquidplanner/getUnsubmittedTime.php"){
-		scriptTimer(print_r($workspaces,true));	    
+		scriptTimer(json_encode($workspaces));	    
     }
     if($workspaces->error=="Throttled"){
 	    print "Throttled. Try again or <a href='mailto:mstearne@pathinteractive.com?subject=LP Throttled'>contact support</a>.";
@@ -148,15 +147,58 @@ class LiquidPlanner {
   }
 
   public function account() {
-    return $this->get('/account');
+  		///// ------------------------------------ /////
+		$pageCache=false;
+		$cacheSnippetName="account-".$_SESSION['lpusername'];
+		if($pageCache=@file_get_contents("cache/$cacheSnippetName")==false){
+			///// -----------Start Code-------------- /////
+			$account=$this->get('/account');
+			///// -----------End Code-------------- /////
+			file_put_contents("cache/$cacheSnippetName", json_encode($account));
+		}else{
+			/// Show existing cache file  
+			$pageCache=file_get_contents("cache/$cacheSnippetName");
+			$account=json_decode($pageCache);
+		}
+		///// ------------------------------------ /////
+   return $account;
   }
 
   public function workspaces() {
-    return $this->get('/workspaces');
+  		///// ------------------------------------ /////
+		$pageCache=false;
+		$cacheSnippetName="workspaces-".$_SESSION['lpusername'];
+		if($pageCache=@file_get_contents("cache/$cacheSnippetName")==false){
+			///// -----------Start Code-------------- /////
+			$workspaces=$this->get('/workspaces');
+			///// -----------End Code-------------- /////
+			file_put_contents("cache/$cacheSnippetName", json_encode($workspaces));
+		}else{
+			/// Show existing cache file  
+			$pageCache=file_get_contents("cache/$cacheSnippetName");
+			$workspaces=json_decode($pageCache);
+		}
+		///// ------------------------------------ /////
+		return $workspaces;
   }
 
   public function projects() {
-    return $this->get("/workspaces/{$this->workspace_id}/projects");
+  		///// ------------------------------------ /////
+		$pageCache=false;
+		$cacheSnippetName="projects-".$_SESSION['lpusername'];
+		if($pageCache=@file_get_contents("cache/$cacheSnippetName")==false){
+			///// -----------Start Code-------------- /////
+ 			$projects=$this->get("/workspaces/{$this->workspace_id}/projects");
+			///// -----------End Code-------------- /////
+			file_put_contents("cache/$cacheSnippetName", json_encode($projects));
+		}else{
+			/// Show existing cache file  
+			$pageCache=file_get_contents("cache/$cacheSnippetName");
+			$projects=json_decode($pageCache);
+		}
+		///// ------------------------------------ /////
+		return $projects;
+	  
   }
 
   public function tasks() {
@@ -178,9 +220,9 @@ class LiquidPlanner {
 
 
 function scriptTimer($label=""){
-	global $email;
-//	unlink("tmp/scriptTimer.txt");
-	file_put_contents("tmp/scriptTimer.txt", date("H:i:s")." ".$email.": ".$label." ".$_SERVER["REQUEST_URI"]."\n",FILE_APPEND);
+//	@unlink("tmp/scriptTimer@".date("Y-m-d")."@.txt".txt");
+	file_put_contents("tmp/scriptTimer@".date("Y-m-d")."@.txt", date("H:i:s")." ".$_SESSION['lpusername'].": ".$label." ".$_SERVER["REQUEST_URI"]."\n",FILE_APPEND);
+//	@chmod("tmp/scriptTimer@".date("Y-m-d")."@.txt", 0777);
 }
 
 function print_r_reverse($in) { 

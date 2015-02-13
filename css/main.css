@@ -662,7 +662,7 @@ and (min-width : 321px) {
 
 
 
-@media only screen and (max-width : 550px) {
+@media only screen and (max-width : 500px) {
   /* Styles */
 
 #ttpopup {display: none}

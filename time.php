@@ -108,7 +108,7 @@ What are you doing on the program?
 <!-- Button -->
 <div class="form-group">
   <div class="col-sm-1">
-    <button id="task_comment_button" name="task_comment_button" class="btn btn-primary">Post</button>
+    <button id="task_comment_button" name="task_comment_button" class="btn btn-primary">Post Comment</button>
   </div>
 </div>
 </div>
@@ -236,15 +236,15 @@ function testGlobal(){
 	
 	function change_project(){
 		
-		$('#runner').fadeOut(500);
-		$("#pauseButton").fadeOut(500);
-		$("#startButton").fadeOut(500);
-		$("#submitButton").fadeOut(500);
+		$('#runner').fadeOut(250);
+		$("#pauseButton").fadeOut(250);
+		$("#startButton").fadeOut(250);
+		$("#submitButton").fadeOut(250);
 
-		$("#task_comments_post").fadeOut(500);
-		$("#task_comments").fadeOut(500);
-		$("#taskemailattachment").fadeOut(500);
-		$("#taskemailattachmentlabel").fadeOut(500);
+		$("#task_comments_post").fadeOut(250);
+		$("#task_comments").fadeOut(250);
+		$("#taskemailattachment").fadeOut(250);
+		$("#taskemailattachmentlabel").fadeOut(250);
 
 
 		
@@ -321,7 +321,7 @@ function openFile(file,taskID,documentID) {
 		$("#unsubmitted-time").hide();
 		$("#task_comments_post").hide();
 		$("#task_comments").hide();
-		$("#runner").fadeTo( 2000, 0.01 );
+		$("#runner").fadeTo( 500, 0.01 );
 
 /// We should also update the running timers area during this update
 		$.ajax
@@ -353,10 +353,10 @@ function openFile(file,taskID,documentID) {
 				});
 
 				$("#runner").runner('start');
-				$("#pauseButton").fadeIn(500);
+				$("#pauseButton").fadeIn(250);
 				$("#startButton").hide();
-				$("#submitButton").fadeIn(500);
-				$('#runner').fadeTo(500,1);
+				$("#submitButton").fadeIn(250);
+				$('#runner').fadeTo(250,1);
 
 
 			    commentsOutput="";
@@ -482,7 +482,7 @@ $('#ttpopup').popupWindow({ height:1000, width:360, top:0, right:0, scrollbars:1
 	$(document).ajaxComplete(function(event, request, settings) {
 	  $('#loading-indicator').hide();
 	  $('#timer_feedback').show();
-	  $("#timer_feedback").fadeOut(4000);
+	  $("#timer_feedback").fadeOut(3000);
 	  
 	});
 
