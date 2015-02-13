@@ -522,6 +522,7 @@ inputs-moz-placeholder {
 
 .lighter-text {
 	color: #888888;
+	font-size: .8em;
 }
 
 
@@ -593,6 +594,12 @@ div#unsubmitted-time-body ul {
 }
 
 
+div#unsubmitted-time-body ul li {
+	border-bottom: 1px solid #ff8d8d;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	
+}
 
 
 
@@ -671,6 +678,20 @@ and (min-width : 321px) {
 
 .glyphiconStyle {font-size: 30px;}
 
+div#unsubmitted-time-body ul li {
+	font-size: .8em;
+}
+
+	.runnerStyle{
+		font-family: sans-serif;
+		font-size: 50px;
+		top: -24px;
+		position: relative;
+	}
+
+	.main {
+	    padding: 30px 0;
+	}
 }
 
 

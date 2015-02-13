@@ -51,6 +51,7 @@ print "<ul>";
 			      $gotAnyTimer=1;
 		        }
 	    	}
+				print "</li>";
     }
 print "</ul>";
 

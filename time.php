@@ -11,10 +11,10 @@
 <span id="startButton" class="glyphicon glyphicon-play glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Start</span></span>
 <span id="pauseButton" class="glyphicon glyphicon-pause glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Pause</span></span> <span id="submitButton" class="glyphicon glyphicon-send glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Submit</span></span>
 </div>
-
 <div>
-<span id="realtimelabel" class="lighter-text"></span>
+<span id="effort-label" class="lighter-text" style="top:-20px;position:relative">fd</span>
 </div>  
+
   
 
 
@@ -245,6 +245,7 @@ function testGlobal(){
 		$("#task_comments").fadeOut(250);
 		$("#taskemailattachment").fadeOut(250);
 		$("#taskemailattachmentlabel").fadeOut(250);
+		$("#effort-label").fadeOut(250);
 
 
 		
@@ -358,7 +359,12 @@ function openFile(file,taskID,documentID) {
 				$("#submitButton").fadeIn(250);
 				$('#runner').fadeTo(250,1);
 
-
+				if(taskJson.max_effort>0){
+					effortOutput="<em>Max</em>: "+taskJson.max_effort+" hours <em>Remaining </em>: "+taskJson.low_effort_remaining+"-"+taskJson.high_effort_remaining+" hours";
+				}else{
+					effortOutput="";
+				}
+				
 			    commentsOutput="";
 			    for (i=0;i<taskJson.comments.length;i++) {	    
 			        commentsOutput+='<div><span class="small-date">' + jQuery.format.prettyDate(taskJson.comments[i].updated_at) + "</span> " + taskJson.comments[i].comment + "</div>";
@@ -378,9 +384,11 @@ function openFile(file,taskID,documentID) {
 				$("#task_comments_post").show();
 				$("#task_comments").html(commentsOutput);
 				$("#task_comments").fadeIn(250);
-				//$("#realtime").text("<?=$running_timer?>");
-				//$("#realtimelabel").html("<strong>logging time for </strong> "+$('#task_id option:selected').text()+" in "+$('#project_id option:selected').text()+'&nbsp;<a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/projects/show/'+$("#task_id").val()+'" target=_blank><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> View in LP</a>');
+				$("#effort-label").html(effortOutput);
+				$("#effort-label").fadeIn(250);
 				
+				//$("#realtime").text("<?=$running_timer?>");
+								
 				$("#taskemailattachment").show();
 				$("#taskemailattachmentlabel").html('<a href="mailto:'+$("#task_id").val()+'-<?=$pathLPAccountEmailID?>@in.liquidplanner.com"><span class="glyphicon glyphicon-paperclip"></span> Send attachment to task</a><br>&nbsp;');
 
@@ -432,8 +440,7 @@ function openFile(file,taskID,documentID) {
 	}	
 	
 $(document).ready (function () {
-
-$('#ttpopup').popupWindow({ height:1000, width:360, top:0, right:0, scrollbars:1,resizable:1 }); 
+$('#ttpopup').popupWindow({ height:(screen.height-30), width:360, top:0, left:(screen.width-360), scrollbars:1,resizable:1 }); 
 
 
 	
@@ -449,7 +456,6 @@ $('#ttpopup').popupWindow({ height:1000, width:360, top:0, right:0, scrollbars:1
 	<? } ?>
 	
 	
-//	$("#realtimelabel").html("<?=$running_timer_label?>");
 	
 	$("#project_id").change(function(){
 		change_project();

@@ -1,6 +1,5 @@
 <?
 // 		print date("s")."<br>";
-session_start();
 
 scriptTimer("in shared.php");
 
@@ -8,6 +7,8 @@ scriptTimer("in shared.php");
 $pathLPAccountEmailID="ced094287fa4ab40846c4ac26b546750";
 $LPAdminAccountUsername="mstearne@pathinteractive.com";
 $LPAdminAccountPassword="Pathinc123";
+
+session_start();
 
 
 /*

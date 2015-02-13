@@ -23,7 +23,6 @@
 $taskJSON=json_encode($task);
 
 print_r($taskJSON);
-//print_r($task);
 exit();
 $comments_for_task=$task->comments;
 $documents_for_task=$task->documents;
