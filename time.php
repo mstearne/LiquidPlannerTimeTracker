@@ -12,7 +12,7 @@
 <span id="pauseButton" class="glyphicon glyphicon-pause glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Pause</span></span> <span id="submitButton" class="glyphicon glyphicon-send glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Submit</span></span>
 </div>
 <div>
-<span id="effort-label" class="lighter-text" style="top:-20px;position:relative">fd</span>
+<span id="effort-label" class="lighter-text" style="top:-20px;position:relative"></span>
 </div>  
 
   
@@ -391,6 +391,7 @@ function openFile(file,taskID,documentID) {
 								
 				$("#taskemailattachment").show();
 				$("#taskemailattachmentlabel").html('<a href="mailto:'+$("#task_id").val()+'-<?=$pathLPAccountEmailID?>@in.liquidplanner.com"><span class="glyphicon glyphicon-paperclip"></span> Send attachment to task</a><br>&nbsp;');
+				$("#taskemailattachmentlabel").show();
 
 				$("#task_documents").html(documentsOutput);
 				$("#task_documents").fadeIn(50);

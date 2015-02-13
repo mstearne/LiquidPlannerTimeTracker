@@ -523,6 +523,7 @@ inputs-moz-placeholder {
 .lighter-text {
 	color: #888888;
 	font-size: .8em;
+	padding-top: 5px;
 }
 
 
@@ -573,7 +574,10 @@ outline: 0 none;
 
 
 
-
+#taskemailattachment {
+	margin-top: 15px;
+	
+}
 
 
 
