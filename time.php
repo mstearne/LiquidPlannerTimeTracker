@@ -282,11 +282,18 @@ function openFile(file,taskID,documentID) {
 				$("#submitButton").fadeIn(250);
 				$('#runner').fadeTo(250,1);
 
+				effortOutput="";
 				if(taskJson.max_effort>0){
 					effortOutput="<em>Max</em>: "+taskJson.max_effort+" hours <em>Remaining </em>: "+taskJson.low_effort_remaining+"-"+taskJson.high_effort_remaining+" hours";
-				}else{
-					effortOutput="";
 				}
+				
+				hoursLogged=0;
+			    for (i=0;i<taskJson.assignments.length;i++) {
+				    hoursLogged=hoursLogged+taskJson.assignments[i].hours_logged;
+			    }
+			    
+			    effortOutput="<em>Logged</em>: "+hoursLogged.toFixed(2)+" hours";
+				
 				
 			    commentsOutput="";
 			    for (i=0;i<taskJson.comments.length;i++) {	    
@@ -358,13 +365,12 @@ function openFile(file,taskID,documentID) {
 		} 
 		});
 
-
 		currentTask=$("#task_id").val();
 	
 	}	
 	
 $(document).ready (function () {
-$('#ttpopup').popupWindow({ height:(screen.height-30), width:360, top:0, left:(screen.width-360), scrollbars:1,resizable:1 }); 
+$('#ttpopup').popupWindow({ height:(screen.height-40), width:360, top:0, left:(screen.width-360), scrollbars:1,resizable:1, menubar:0, location:0 }); 
 
 
 	

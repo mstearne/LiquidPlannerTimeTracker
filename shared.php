@@ -38,6 +38,21 @@ if($_SESSION['lpuserid']){
     $count = count($projects);
 }
 
+
+
+/// check if there are old cache files that can be deleted, delete them now. 
+$files = glob("cache/*");
+$time  = time();
+
+foreach ($files as $file){
+	if (is_file($file)){
+		if ($time - filemtime($file) >= 60*30){ // 1/2 hour old
+			unlink($file);
+		}
+	}
+}
+
+
 function convert_decimal_hours_to_milliseconds($decimalHours){
 	
 	// in 1.23 hours out to 4428000 milliseconds

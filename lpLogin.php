@@ -4,15 +4,6 @@
 	
 if($_REQUEST['action']=="login"){
 
-		/// check if there are old cache files that can be deleted, delete them now. 
-		$files = glob("cache/*");
-		$time  = time();
-		
-		foreach ($files as $file)
-		if (is_file($file))
-		if ($time - filemtime($file) >= 60*60) // 1 hour old
-		unlink($file);
-
 	
 /// check the username and password again LP
     $email = $_REQUEST['lpusername']; //trim(fgets(STDIN));
