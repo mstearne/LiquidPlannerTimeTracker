@@ -42,7 +42,7 @@ if($_REQUEST['action']=="login"){
 		
   		///// ------------------------------------ /////
 		$pageCache=false;
-		$cacheSnippetName="teams-".$_SESSION['lpusername'];
+		$cacheSnippetName="teams";
 		if($pageCache=@file_get_contents("cache/$cacheSnippetName")==false){
 			///// -----------Start Code-------------- /////
 			$teamMembers=$lpAdmin->get("/workspaces/{$lpAdmin->workspace_id}/teams","");

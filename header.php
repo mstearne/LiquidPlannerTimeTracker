@@ -39,9 +39,9 @@
         <div class="header-container">
             <header class="wrapper clearfix">
                 <h1 class="title">
-	                <div style="width:34px;height:34px;display:inline"><img src="images/path-logo-small.png"></div>
+	                <a href="time.php" style="color:white; text-decoration:none"><div style="width:34px;height:34px;display:inline"><img src="images/path-logo-small.png"></div>
 	                
-	                <span class="hidden-xs"><img src="images/lp-logo.png" alt="lp-logo" width="" height="" id="lplogo" /></span> Time Tracker <span class="hidden-xs">&nbsp;&nbsp;&nbsp;&nbsp;<a href="/liquidplanner/time.php" title="Time Tracker" id="ttpopup" class="glyphicon glyphicon-new-window glyphiconStyleSmall" onclick="location.href='index.php'"></a></span> <img src="images/ajax-loader.gif" width="30" id="loading-indicator" style="display:none" /></h1> 
+	                <span class="hidden-xs"><img src="images/lp-logo.png" alt="lp-logo" width="" height="" id="lplogo" /></span> Time Tracker <span class="hidden-xs"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/liquidplanner/time.php" title="Time Tracker" id="ttpopup" class="glyphicon glyphicon-new-window glyphiconStyleSmall" onclick="location.href='index.php'"></a></span> <img src="images/ajax-loader.gif" width="30" id="loading-indicator" style="display:none" /></h1> 
 <div style="position: absolute; top:70px; right: 10px;"> <span class="hidden-xs"><span style="color: white; font-size: 1em"><a href="lpLogin.php?action=logout" style="color:white"><?=$_SESSION['lpusername']?></a></span></span> <span style="color: white; font-size: 1em"><a href="lpLogin.php?action=logout" style="color:white">Logout <span class="glyphicon glyphicon-log-out" style="color:white;"></span></a></span></div>
 
 
