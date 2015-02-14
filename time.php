@@ -1,9 +1,5 @@
 <? include_once('shared.php'); ?>
 <? include_once('header.php'); ?>
-<?
-//	print_r($_SESSION['lpteam']);
-	//error_reporting(0); 
-	?>
 
 <div class="timerDiv" id="timerDiv">
 <span id="runner" class="runnerStyle"></span>
@@ -16,78 +12,36 @@
 </div>  
 
   
-
-
-<!--
-<div class="lighter-text">
-<br>
-Select a program/project: 
-</div>
--->
 <div name="project_id">
 
 <select id="project_id" class="chosen-select">
 <option></option>
-
 <?
     foreach($projects as $i => $p) {
-//	    if($p->owner_id==$account->id){
-			if($p->client_id!="19948524"){ // Don't show the Path internal system admin client projects
-//				print_r($p);
 				if($p->is_done!=1){
 					for($i=0;$i<count($p->assignments);$i++){
-//						if($p->assignments[$i]->person_id=="468851"){
 						if($p->assignments[$i]->person_id==in_array($p->assignments[$i]->person_id, $_SESSION['lpteam'])){
 							print "<option value='$p->id'>$p->client_name : $p->name</option>";
 						}
 					}
 				}
-		    }
-//	    }
     }
-
 ?>
 </select>
 </div>
 
-
-<!--
-<div id="activity_select" style="display: none">
-What are you doing on the program? 
-<div name="activity_id">
-<select class="selects" id="activity_id">
-<option></option>
-
-</select>
-</div> 
-</div>
--->
 <br>
-
-<div id="task_select" class="lighter-text" style="display: none">
-<!-- Which task are you working on?   -->
-
-<div name="task_id">
-<select class="chosen-select-task" id="task_id">
-
-</select> <span id="task_link"></span>
+<div id="task_select" style="display: none">
+	<div name="task_id">
+	<select class="chosen-select-task" id="task_id">
+	</select> <span id="task_link"></span>
+	</div>
 </div>
-
-</div>
-
-
-
-
 
 <div id="task_comments_post" style="display: none">
 
 <div class="lighter-text">
 <br>
-<!--
-
-<strong>Task comments...</strong>
--->
-
 
 </div>
 
@@ -131,45 +85,18 @@ var currentProject;
 
 $timers=$lp->get("/workspaces/{$lp->workspace_id}/my_timers");
 
-/*
-    foreach($timers as $i => $timer) {
-			      if($timer->running==1){
-				      $running_timer=round(($timer->running_time + $timer->total_time)*3600000);
-//				      $running_timer_label="<strong>logging time for </strong> ".$task->name." in ".$pros->name;
-//				      print "<span id=realtime-bottom></span> <em>Currently running</em>";
-				      $gotRunningTimer=1;
-				      $running_timer_id=$timer->item_id;
-*/
-/*
-				      $running_timer_name=$task->name;
-				      $running_timer_project_id=$task->project_id;
-*/
-				      ?>
-				      <?
-//			      }else{
-//				      print convert_to_time($timer->total_time);
-//			      }
-//	      $gotAnyTimer=1;
-//	}
-
-
-
     foreach($timers as $i => $timer) {
 	      $task=$lp->get("/workspaces/{$lp->workspace_id}/tasks/{$timer->item_id}");
 	        foreach($projects as $x => $pros) {
 		        if($pros->id==$task->project_id){
-//			      print "<li>".$task->name." in ".$pros->name." for ".$pros->client_name." Time: ";
 			      if($timer->running==1){
 				      $running_timer=round(($timer->running_time + $timer->total_time)*3600000);
-//				      $running_timer_label="<strong>logging time for </strong> ".$task->name." in ".$pros->name;
-//				      print "<span id=realtime-bottom></span> <em>Currently running</em>";
 				      $gotRunningTimer=1;
 				      $running_timer_id=$task->id;
 				      $running_timer_name=$task->name;
 				      $running_timer_project_id=$task->project_id;
 
 				      }else{
-//				      print convert_to_time($timer->total_time);
 			      }
 					$gotAnyTimer=1;
 					$any_timer_id=$task->id;
@@ -181,10 +108,7 @@ $timers=$lp->get("/workspaces/{$lp->workspace_id}/my_timers");
     }
 
 
-
-
-//if(count($timers)>1){
-	?>
+?>
 
 <div id="unsubmitted-time" style="display: none; background-color: #ffaaaa; padding: 20px; margin-top: 10px; border-radius: 5px; width: 90%"><strong>Hey. You have unsubmitted time. You should <a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/timesheet" target=_blank>view your timesheet to submit all your time.</a></strong> <br>
 <div id="unsubmitted-time-body">
@@ -194,7 +118,6 @@ $timers=$lp->get("/workspaces/{$lp->workspace_id}/my_timers");
 </div>
 
 <?
-//	}
 
 	if(!$gotRunningTimer){
     	$running_timer=0;
@@ -496,11 +419,7 @@ $('#ttpopup').popupWindow({ height:(screen.height-30), width:360, top:0, left:(s
 });
 
 
-
-
-
 	$('#startButton').click(function() {
-//		$('#runner').runner('stop');
 		$('#runner').runner('start');
 		console.log($('#runner').runner('info'));
 		$('#pauseButton').show();
@@ -614,13 +533,11 @@ $('#ttpopup').popupWindow({ height:(screen.height-30), width:360, top:0, left:(s
 		                alert("Please enter time amount to log.");
 		                return false;
 	                }
-//	                alert($('select[name=activity_id_submit]').val());
 	                if($('#activity_id_submit')[0].selectedIndex==0){
 		                alert("Please select an activity to log.");
 		                return false;
 	                }
 	                
-					//$(this).prop("disabled",true);
 					var $button = this; // 'this' here is a jQuery object that wrapping the <button> DOM element.
                     $button.disable();
                     $button.spin();
@@ -635,7 +552,6 @@ $('#ttpopup').popupWindow({ height:(screen.height-30), width:360, top:0, left:(s
 		                    dialogItself.close();
 							$("#timer_feedback").html(html);
 							location.href = "time.php?message="+encodeURIComponent(html);
-//							location.replace(location.href);
 
 						} 
 					});
@@ -680,13 +596,13 @@ $('#ttpopup').popupWindow({ height:(screen.height-30), width:360, top:0, left:(s
 												$("#task_comments").html("");
 												for (i=0;i<taskJson.comments.length;i++) {
 													if (typeof taskJson.comments[i].comment != 'undefined'){
-												    commentsOutput+='<div><span class="small-date">' + taskJson.comments[i].updated_at + "</span> " + taskJson.comments[i].comment + "</div>";
+												    commentsOutput+='<div><span class="small-date">' + jQuery.format.prettyDate(taskJson.comments[i].updated_at) + "</span> " + taskJson.comments[i].comment + "</div>";
 												    }
 												}
 												$("#task_comments_post").show();
 												$("#task_comments").hide();
 												$("#task_comments").html(commentsOutput);
-												$("#task_comments").fadeIn(350);
+												$("#task_comments").fadeIn(250);
 			
 										$.ajax
 										({
@@ -714,8 +630,4 @@ $('#ttpopup').popupWindow({ height:(screen.height-30), width:360, top:0, left:(s
 
 </script>
 
-
-
 <? include_once('footer.php'); ?>
-
-

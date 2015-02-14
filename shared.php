@@ -1,5 +1,4 @@
 <?
-// 		print date("s")."<br>";
 
 scriptTimer("in shared.php");
 
@@ -10,17 +9,11 @@ $LPAdminAccountPassword="Pathinc123";
 
 session_start();
 
-
-/*
-print $_SERVER["SCRIPT_NAME"];
-print_r($_SESSION);
-*/
 if(!$_SESSION['lpusername']&&$_SERVER["SCRIPT_NAME"]!="/liquidplanner/lpLogin.php"){
 	header("Location: lpLogin.php");
 	print '<meta http-equiv="refresh" content="0; url=lpLogin.php">';
 	exit();
 } 
-
 
 if($_SESSION['lpuserid']){
     $email = $_SESSION['lpusername'];  
