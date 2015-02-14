@@ -3,6 +3,16 @@
 	
 	
 if($_REQUEST['action']=="login"){
+
+		/// check if there are old cache files that can be deleted, delete them now. 
+		$files = glob("cache/*");
+		$time  = time();
+		
+		foreach ($files as $file)
+		if (is_file($file))
+		if ($time - filemtime($file) >= 60*60) // 1 hour old
+		unlink($file);
+
 	
 /// check the username and password again LP
     $email = $_REQUEST['lpusername']; //trim(fgets(STDIN));
@@ -38,8 +48,23 @@ if($_REQUEST['action']=="login"){
 	    $lpAdmin->workspace_id = $wsAdmin->id;
 	
 		/// We need to record the teams structure in LP in order make sure that we get the projects and tasks that not only this user is the owner of but also anyone on their team
+		
+  		///// ------------------------------------ /////
+		$pageCache=false;
+		$cacheSnippetName="teams-".$_SESSION['lpusername'];
+		if($pageCache=@file_get_contents("cache/$cacheSnippetName")==false){
+			///// -----------Start Code-------------- /////
+			$teamMembers=$lpAdmin->get("/workspaces/{$lpAdmin->workspace_id}/teams","");
+			///// -----------End Code-------------- /////
+			file_put_contents("cache/$cacheSnippetName", json_encode($teamMembers));
+		}else{
+			/// Show existing cache file  
+			$pageCache=file_get_contents("cache/$cacheSnippetName");
+			$teamMembers=json_decode($pageCache);
+		}
+		///// ------------------------------------ /////
+		
 
-		$teamMembers=$lpAdmin->get("/workspaces/{$lpAdmin->workspace_id}/teams","");
 		$_SESSION['lpteam']=$teamMembers;
 		
 		for($i=0;$i<count($teamMembers);$i++){
@@ -51,7 +76,9 @@ if($_REQUEST['action']=="login"){
 			}
 		}
 		
+
 		
+	
 
 	    header("Location: time.php");
 	    exit();
