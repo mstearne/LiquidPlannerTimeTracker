@@ -7,8 +7,8 @@
 <span id="startButton" class="glyphicon glyphicon-play glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Start</span></span>
 <span id="pauseButton" class="glyphicon glyphicon-pause glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Pause</span></span> <span id="submitButton" class="glyphicon glyphicon-send glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Submit</span></span>
 </div>
-<div>
-<span id="effort-label" class="lighter-text"></span>
+<div id="effort-label-container">
+<div id="effort-label" class="lighter-text"></div>
 </div>  
 
   
@@ -374,7 +374,7 @@ function openFile(file,taskID,documentID) {
 	}	
 	
 $(document).ready (function () {
-$('#ttpopup').popupWindow({ height:(screen.height-40), width:360, top:0, left:(screen.width-360), scrollbars:1,resizable:1, menubar:0, location:0 }); 
+$('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(screen.width-360), scrollbars:1,resizable:1, menubar:0, location:0 }); 
 
 
 	

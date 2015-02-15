@@ -413,7 +413,7 @@ nav a:hover {
 		font-family: sans-serif;
 	}
 	.timerDiv{
-		height: 150px;
+		height: 130px;
 	}
  
 
@@ -608,8 +608,12 @@ div#unsubmitted-time-body ul li {
 
 
 
+#effort-label{
+}
 
-
+#effort-label-container{
+	height: 30px;
+}
 
 
 
