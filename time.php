@@ -8,7 +8,7 @@
 <span id="pauseButton" class="glyphicon glyphicon-pause glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Pause</span></span> <span id="submitButton" class="glyphicon glyphicon-send glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Submit</span></span>
 </div>
 <div>
-<span id="effort-label" class="lighter-text" style="top:-20px;position:relative"></span>
+<span id="effort-label" class="lighter-text"></span>
 </div>  
 
   
@@ -159,6 +159,10 @@ function testGlobal(){
 	
 	function change_project(){
 		
+		$('#runner').runner=undefined;
+		$(".chosen-select").chosen=undefined;
+		$(".chosen-select-task").chosen=undefined;
+		 
 		$('#runner').fadeOut(250);
 		$("#pauseButton").fadeOut(250);
 		$("#startButton").fadeOut(250);
@@ -168,7 +172,7 @@ function testGlobal(){
 		$("#task_comments").fadeOut(250);
 		$("#taskemailattachment").fadeOut(250);
 		$("#taskemailattachmentlabel").fadeOut(250);
-		$("#effort-label").fadeOut(250);
+		$("#effort-label").html(" ");
 
 
 		
