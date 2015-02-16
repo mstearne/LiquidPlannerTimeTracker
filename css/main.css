@@ -616,7 +616,11 @@ div#unsubmitted-time-body ul li {
 }
 
 
-
+.status-area {
+	position: absolute; 
+	top:70px; 
+	right: 10px;
+}
 
 
 
@@ -701,6 +705,57 @@ div#unsubmitted-time-body ul li {
 	    padding: 30px 0;
 	}
 }
+
+@media only screen and (max-width : 300px) {
+  /* Styles */
+
+
+h1 {
+font-size: 1.4em!important;	
+}
+
+
+	.runnerStyle{
+		font-family: sans-serif;
+		font-size: 32px;
+		top: -24px;
+		position: relative;
+	}
+
+.status-area {
+	position: absolute; 
+	top:60px; 
+	right: 10px;
+}
+
+#timer_feedback { 
+	font-size: .8em;
+	left:5px; 
+	position: absolute;
+	top:60px; color: white; 
+	text-transform: capitalize	
+	
+	}
+
+.chosen-container {
+    font-size: 10px!important;
+}
+
+
+.timerDiv {height: 66px;}
+
+.glyphiconStyle {font-size: 25px;}
+
+	.glyphiconStyleText{
+		font-family: sans-serif;
+		position:relative; top:-17px;font-size:.3em;
+	}
+
+
+}
+
+
+
 
 
 /* iPads (portrait and landscape) ----------- */
