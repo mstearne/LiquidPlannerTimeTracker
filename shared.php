@@ -160,7 +160,7 @@ class LiquidPlanner {
   		///// ------------------------------------ /////
 		$pageCache=false;
 		$cacheSnippetName="account-".$_SESSION['lpusername'];
-		if($pageCache=@file_get_contents("cache/$cacheSnippetName")==false){
+		if($pageCache=@file_get_contents("cache/$cacheSnippetName")==false||!$_SESSION['lpusername']){
 			///// -----------Start Code-------------- /////
 			$account=$this->get('/account');
 			///// -----------End Code-------------- /////

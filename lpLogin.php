@@ -1,7 +1,6 @@
 <? include_once('shared.php'); 
 	
 	
-	
 if($_REQUEST['action']=="login"){
 
 	
@@ -11,7 +10,8 @@ if($_REQUEST['action']=="login"){
     $lp = new LiquidPlanner($email, $password);
 
     $account = $lp->account();
-
+//print_r($lp); 
+//exit();
     if($account){
 	    
 	    $_SESSION['lpusername']=$_REQUEST['lpusername'];
@@ -31,7 +31,6 @@ if($_REQUEST['action']=="login"){
 	    $count = count($projects);
 
 		$lpAdmin = new LiquidPlanner($LPAdminAccountUsername, $LPAdminAccountPassword);
-
 
 	    $accountAdmin = $lpAdmin->account();
 	    $workspacesAdmin = $lpAdmin->workspaces();
