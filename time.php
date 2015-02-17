@@ -22,10 +22,15 @@
 <select id="project_id" class="chosen-select">
 <option></option>
 <?
+	$foundProjects=array();
     foreach($projects as $i => $p) {
 				if($p->is_done!=1){
+					if(in_array($p->id, $LPIncludedProjects)){
+						array_push($foundProjects, $p->id);
+					}
 					for($i=0;$i<count($p->assignments);$i++){
 						if($p->assignments[$i]->person_id==in_array($p->assignments[$i]->person_id, $_SESSION['lpteam'])){
+							array_push($foundProjects, $p->id);
 							print "<option value='$p->id'>$p->client_name : $p->name</option>";
 						}
 					}
@@ -33,6 +38,15 @@
     }
 ?>
 </select>
+<? // print "k"; ?>
+<? 
+	//print_r($foundProjects);
+	
+$foundProjectsClean=array_unique($foundProjects);	
+	
+	//print_r($foundProjectsClean);
+	
+?>
 </div>
 
 <br>
