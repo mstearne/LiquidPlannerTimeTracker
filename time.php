@@ -1,16 +1,21 @@
 <? include_once('shared.php'); ?>
 <? include_once('header.php'); ?>
 
-<div class="timerDiv" id="timerDiv">
-<span id="runner" class="runnerStyle"></span>
-&nbsp;&nbsp;&nbsp;
-<span id="startButton" class="glyphicon glyphicon-play glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Start</span></span>
-<span id="pauseButton" class="glyphicon glyphicon-pause glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Pause</span></span> <span id="submitButton" class="glyphicon glyphicon-send glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Submit</span></span>
-</div>
-<div id="effort-label-container">
-<div id="effort-label" class="lighter-text"></div>
-</div>  
+<section>
+    <div id="runnerDiv">
+	    <span id="runner" class="runnerStyle"></span>
+    </div>
+    <div id="buttonsDiv">
+	    <span id="startButton" class="glyphicon glyphicon-play glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Start</span></span>
+	<span id="pauseButton" class="glyphicon glyphicon-pause glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Pause</span></span> <span id="submitButton" class="glyphicon glyphicon-send glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Submit Time</span></span>
+	
+    </div>
+</section>
 
+<div id="effort-label" class="lighter-text">
+	<!-- effort -->
+</div>
+	
   
 <div name="project_id">
 
@@ -62,7 +67,7 @@
 <!-- Button -->
 <div class="form-group">
   <div class="col-sm-1">
-    <button id="task_comment_button" name="task_comment_button" class="btn btn-primary">Post Comment</button>
+    <button id="task_comment_button" name="task_comment_button" class="btn btn-sm btn-primary">Post Comment</button>
   </div>
 </div>
 </div>
@@ -196,8 +201,8 @@ function testGlobal(){
 				startupTask=false;
 			}
 			
-				$(".chosen-select").chosen({width:"75%",no_results_text: "Oops, nothing found!",placeholder_text_single:"Select the program or project you're working on"});
-				$(".chosen-select-task").chosen({width:"75%",no_results_text: "Oops, nothing found!",placeholder_text_single:"Select the task you're working on"});
+				$(".chosen-select").chosen({width:"90%",no_results_text: "Oops, nothing found!",placeholder_text_single:"Select the program or project you're working on"});
+				$(".chosen-select-task").chosen({width:"90%",no_results_text: "Oops, nothing found!",placeholder_text_single:"Select the task you're working on"});
 				$('.chosen-select-task').trigger('chosen:updated');
 		} 
 		});
@@ -412,7 +417,7 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 		
 	
 	<? }else{ ?>
-				$(".chosen-select").chosen({width:"75%",no_results_text: "Oops, nothing found!",placeholder_text_single:"Select the program or project you're working on"});
+				$(".chosen-select").chosen({width:"90%",no_results_text: "Oops, nothing found!",placeholder_text_single:"Select the program or project you're working on"});
 	<? } ?>
 
 	$(document).ajaxSend(function(event, request, settings) {

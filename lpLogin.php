@@ -116,7 +116,7 @@ if($_REQUEST['action']=="logout"){
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="lpusername">Username</label>  
+  <label class="col-md-4 control-label" for="lpusername">Email address</label>  
   <div class="col-md-4">
   <input id="lpusername" name="lpusername" type="text" placeholder="" class="form-control input-md" required="">
     
