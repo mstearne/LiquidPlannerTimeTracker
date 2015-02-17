@@ -23,23 +23,14 @@
     foreach($projects as $i => $p) {
 				if($p->is_done!=1){
 					if(in_array($p->id, $LPIncludedProjects)){
-<<<<<<< HEAD
 						array_push($foundProjects, "{$p->id}|{$p->client_name}|{$p->name}");
 					}
 					for($i=0;$i<count($p->assignments);$i++){
 						if($p->assignments[$i]->person_id==in_array($p->assignments[$i]->person_id, $_SESSION['lpteam'])){
 							array_push($foundProjects, "{$p->id}|{$p->client_name}|{$p->name}");
-=======
-						array_push($foundProjects, $p->id);
-					}
-					for($i=0;$i<count($p->assignments);$i++){
-						if($p->assignments[$i]->person_id==in_array($p->assignments[$i]->person_id, $_SESSION['lpteam'])){
-							array_push($foundProjects, $p->id);
-							print "<option value='$p->id'>$p->client_name : $p->name</option>";
->>>>>>> FETCH_HEAD
-						}
 					}
 				}
+    	}
     }
 ?>
 <select id="project_id" class="chosen-select">
@@ -50,19 +41,19 @@ $foundProjectsClean=array_values($foundProjectsClean);
 	
 for($i=0;$i<count($foundProjectsClean);$i++){
 	$pro=explode("|", $foundProjectsClean[$i]);
-	print "<option value='{$pro[0]}'>{$pro[1]} : {$pro[2]}</option>";
+	
+	// if the client name in is in the project then we don't need to display that client name, just display the client name
+	$strippedClientName=str_replace(" ", "", $pro[1]);
+	$strippedProjectName=str_replace(" ", "", $pro[2]);
+//	print "<!-- $strippedClientName $strippedProjectName -->";
+	if(strstr($strippedProjectName, $strippedClientName)){
+		print "<option value='{$pro[0]}'>{$pro[2]}</option>";
+	}else{
+		print "<option value='{$pro[0]}'>{$pro[1]} : {$pro[2]}</option>";
+	}
 }
 ?>
 </select>
-<? // print "k"; ?>
-<? 
-	//print_r($foundProjects);
-	
-$foundProjectsClean=array_unique($foundProjects);	
-	
-	//print_r($foundProjectsClean);
-	
-?>
 </div>
 
 <br>
@@ -675,4 +666,4 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 
 </script>
 
-<? include_once('footer.php'); ?>
+<? include_once('footer.php');	?>
