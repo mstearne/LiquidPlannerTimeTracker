@@ -7,6 +7,7 @@ $pathLPAccountEmailID="ced094287fa4ab40846c4ac26b546750";
 $LPAdminAccountUsername="mstearne@pathinteractive.com";
 $LPAdminAccountPassword="Pathinc123";
 //$LPIgnoredProjects=array()
+$LPIncludedProjects=array("16782206","15882047","16782204","16782205");
 
 session_start();
 

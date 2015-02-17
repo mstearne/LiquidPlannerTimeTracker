@@ -18,19 +18,31 @@
 	
   
 <div name="project_id">
-
-<select id="project_id" class="chosen-select">
-<option></option>
 <?
+	$foundProjects=array();
     foreach($projects as $i => $p) {
 				if($p->is_done!=1){
+					if(in_array($p->id, $LPIncludedProjects)){
+						array_push($foundProjects, "{$p->id}|{$p->client_name}|{$p->name}");
+					}
 					for($i=0;$i<count($p->assignments);$i++){
 						if($p->assignments[$i]->person_id==in_array($p->assignments[$i]->person_id, $_SESSION['lpteam'])){
-							print "<option value='$p->id'>$p->client_name : $p->name</option>";
+							array_push($foundProjects, "{$p->id}|{$p->client_name}|{$p->name}");
 						}
 					}
 				}
     }
+?>
+<select id="project_id" class="chosen-select">
+<option></option>
+<?	
+$foundProjectsClean=array_unique($foundProjects);	
+$foundProjectsClean=array_values($foundProjectsClean);
+	
+for($i=0;$i<count($foundProjectsClean);$i++){
+	$pro=explode("|", $foundProjectsClean[$i]);
+	print "<option value='{$pro[0]}'>{$pro[1]} : {$pro[2]}</option>";
+}
 ?>
 </select>
 </div>
