@@ -35,7 +35,7 @@ print "<ul>";
 		///// ------------------------------------ /////
 	        foreach($projects as $x => $pros) {
 		        if($pros->id==$task->project_id){
-			      print "<li>".$task->name." in ".$pros->name." for ".$pros->client_name." Time: ";
+			      print "<li><a href='?task_id={$task->id}' class='black-link'>".$task->name." in ".$pros->name." for ".$pros->client_name."</a> Time: ";
 			      if($timer->running==1){
 				      $running_timer=round(($timer->running_time + $timer->total_time)*3600000);
 //				      $running_timer_label="<strong>logging time for </strong> ".$task->name." in ".$pros->name;

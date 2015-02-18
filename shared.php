@@ -6,7 +6,7 @@ scriptTimer("in shared.php");
 $pathLPAccountEmailID="ced094287fa4ab40846c4ac26b546750";
 $LPAdminAccountUsername="mstearne@pathinteractive.com";
 $LPAdminAccountPassword="Pathinc123";
-$LPIncludedProjects=array("16782206","15882047","16782204","16782205");
+$LPIncludedProjects=array("15882047","16782204","16782205");
 
 session_start();
 

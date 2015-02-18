@@ -6,14 +6,15 @@
 	    <span id="runner" class="runnerStyle"></span>
     </div>
     <div id="buttonsDiv">
-	    <span id="startButton" class="glyphicon glyphicon-play glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Start</span></span>
-	<span id="pauseButton" class="glyphicon glyphicon-pause glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Pause</span></span> <span id="submitButton" class="glyphicon glyphicon-send glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Submit Time</span></span>
-	
+	    <span id="startButton" class="glyphicon glyphicon-play glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>&nbsp;Start</span></span>
+	<span id="stopButton" class="glyphicon glyphicon-stop glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>&nbsp;&nbsp;Stop</span></span> <span id="submitButton" class="glyphicon glyphicon-send glyphiconStyle" style="display: none"><span class="glyphiconStyleText"><br>Submit Time</span></span>
+<? if($_SESSION['lpusername']=="mstearne@pathinteractive.com"){ ?>
+<span id="resetButton" class="glyphicon glyphicon-remove glyphiconStyle glyphicon-remove-button" style="display:none"></span>
+<? } ?>	
     </div>
 </section>
 
 <div id="effort-label" class="lighter-text">
-	<!-- effort -->
 </div>
 	
   
@@ -96,6 +97,7 @@ for($i=0;$i<count($foundProjectsClean);$i++){
 <script>
 var currentTask;
 var currentProject;
+var timerIsPaused;
 </script>
 
 
@@ -153,14 +155,23 @@ $timers=$lp->get("/workspaces/{$lp->workspace_id}/my_timers");
 <script>
 
 var currentTask;
+var currentTaskStartTime;
 var currentProject;
 var startupTask;
+var globalStartTime;
 
 function testGlobal(){
 	alert("global");
 	$("#runner").runner('start');
 
 }
+
+$('#runner').runner({
+autostart: false,
+countdown: false,
+startAt: 0,
+milliseconds: false		
+});
 
 <? if($_REQUEST['task_id']){ ?>
 
@@ -185,14 +196,14 @@ function testGlobal(){
 	
 	function change_project(){
 		
-		$('#runner').runner=undefined;
 		$(".chosen-select").chosen=undefined;
 		$(".chosen-select-task").chosen=undefined;
 		 
 		$('#runner').fadeOut(250);
-		$("#pauseButton").fadeOut(250);
+		$("#stopButton").fadeOut(250);
 		$("#startButton").fadeOut(250);
 		$("#submitButton").fadeOut(250);
+		$("#resetButton").fadeOut(250);
 
 		$("#task_comments_post").fadeOut(250);
 		$("#task_comments").fadeOut(250);
@@ -230,45 +241,29 @@ function testGlobal(){
 	}
 
 
-function openFile(file,taskID,documentID) {
-    var extension = file.substr( (file.lastIndexOf('.') +1) );
-    switch(extension) {
-        case 'jpg':
-        case 'png':
-        case 'gif':
-            return '<img src="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/item/'+taskID+'/documents/'+documentID+'/thumbnail">';
-        break;                         // the alert ended with pdf instead of gif.
-        case 'zip':
-        case 'rar':
-        	return '<img src="https://app.liquidplanner.com/assets/icons/zip_file-0bbfaaf53712307f1bbae557ae495ec9.png">';
-        break;
-        case 'psd':
-        case 'pdf':
-        	return '<img src="https://app.liquidplanner.com/assets/icons/pdf_file-daf4a4a712045875887b260bc0cbc75c.png">';
-        break;
-        case 'doc':
-        case 'docx':
-        	return '<img src="https://app.liquidplanner.com/assets/icons/doc_file-495c3a9721da16baaf8f3dc921a89782.png">';
-        break;
-        case 'xls':
-        case 'xlsx':
-        	return '<img src="https://app.liquidplanner.com/assets/icons/xls_file-417b766a13a8444ef2fa0cba316d3295.png">';
-        break;
-        case 'ppt':
-        case 'pptx':
-        	return '<img src="https://app.liquidplanner.com/assets/icons/ppt_file-a0e4aa1ad371096946fb2d963784c61e.png">';
-        break;
-        default:
-        	return '<img src="https://app.liquidplanner.com/assets/icons/pdf_file-daf4a4a712045875887b260bc0cbc75c.png">';
-    }
-};
-
-
 
 	function change_task(){
 
 		var commentsOutput;
 		var documentsOutput;
+		
+		// if we have another timer running we have to stop that first after we switched to the new task
+//		alert("currentTask="+currentTask+" selected="+$("#task_id").val())
+		if(currentTask){
+			$("#runner").runner('stop');
+			$.ajax
+			({
+			type: "POST",
+			url: "stopTimer.php",
+			data: "task_id="+currentTask,
+			cache: false,
+			success: function(html)
+			{
+				$("#timer_feedback").html(html);
+			} 
+			});
+		}
+
 
 		$("#task_link").html('<a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/projects/show/'+$("#task_id").val()+'" target=_blank><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a> <span class="hidden-xs"><a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/projects/show/'+$("#task_id").val()+'" target=_blank>View in LP</a></span>');
 
@@ -277,7 +272,7 @@ function openFile(file,taskID,documentID) {
 		$("#task_comments").hide();
 		$("#runner").fadeTo( 500, 0.01 );
 
-/// We should also update the running timers area during this update
+		/// We should also update the running timers area during this update
 		$.ajax
 		({
 			type: "POST",
@@ -289,28 +284,58 @@ function openFile(file,taskID,documentID) {
 
 
 				var tmpTime=0;
-				if(taskJson.timer){
-					if(taskJson.timer.running){
-						var taskTimeMS=(taskJson.timer.running_time+taskJson.timer.total_time)*3600000;
-					}else{
-						var taskTimeMS=taskJson.timer.total_time*3600000;
-					}
-				}else{
+				if(!taskJson.timer){
 					var taskTimeMS=0;
+				}else{
+					if(!taskJson.timer.running){
+						var taskTimeMS=taskJson.timer.total_time*3600000;
+					}else{
+						var taskTimeMS=(taskJson.timer.running_time+taskJson.timer.total_time)*3600000;
+					}
+				}
+				
+				currentTaskStartTime=parseInt(taskTimeMS);
+				
+				console.log(JSON.stringify(taskJson));
+
+				console.log(parseInt(taskTimeMS)+" "+parseInt(taskTimeMS/1000/60));
+				/// we need to set the start time for the 
+				globalStartTime=parseInt(taskTimeMS);
+				$("#runner").runner('setNewStartAt',globalStartTime);
+
+				$("#runner").runner('reset');
+
+				if(!taskJson.timer){
+					$("#startButton").fadeIn(250);
+					$("#stopButton").hide();
+				}else{
+					if(taskJson.timer.running){
+						/// start the new timer in LP with selected task_id
+						$.ajax
+						({
+						type: "POST",
+						url: "startTimer.php",
+						data: "task_id="+$("#task_id").val(),
+						cache: false,
+						success: function(html)
+						{
+							$("#timer_feedback").html(html);
+						} 
+						});
+						$("#runner").runner('start');
+						$("#startButton").hide();
+						$("#stopButton").fadeIn(250);
+					}else{
+						$("#runner").runner('stop');
+						$("#startButton").fadeIn(250);
+					}
 				}
 
-				$('#runner').runner({
-			    autostart: false,
-			    countdown: false,
-			    startAt: parseInt(taskTimeMS),
-				milliseconds: false		
-				});
 
-				$("#runner").runner('start');
-				$("#pauseButton").fadeIn(250);
-				$("#startButton").hide();
 				$("#submitButton").fadeIn(250);
+				$("#resetButton").fadeIn(250);
 				$('#runner').fadeTo(250,1);
+				$('#runner').fadeIn(250);
 
 				effortOutput="";
 				if(taskJson.max_effort>0){
@@ -361,18 +386,6 @@ function openFile(file,taskID,documentID) {
 		});
 
 
-		/// start the new timer in LP with selected task_id
-		$.ajax
-		({
-		type: "POST",
-		url: "startTimer.php",
-		data: "task_id="+$("#task_id").val(),
-		cache: false,
-		success: function(html)
-		{
-			$("#timer_feedback").html(html);
-		} 
-		});
 
 		$.ajax
 		({
@@ -458,7 +471,7 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 	$('#startButton').click(function() {
 		$('#runner').runner('start');
 		console.log($('#runner').runner('info'));
-		$('#pauseButton').show();
+		$('#stopButton').show();
 		$('#startButton').hide();
 		$('#submitButton').show();
 
@@ -473,12 +486,34 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 				$("#timer_feedback").html(html);
 			} 
 		});
+
+		$.ajax
+		({
+		type: "POST",
+		url: "getUnsubmittedTime.php",
+		cache: false,
+		dataType: "text",
+		success: function(html)
+		{
+			//								alert(html)
+			if(html!="false"){
+				$("#unsubmitted-time").hide();
+				$("#unsubmitted-time-body").show();
+				$("#unsubmitted-time-body").html(html);
+				$("#unsubmitted-time").fadeIn(250);
+			}else{
+				$("#unsubmitted-time").hide();
+				$("#unsubmitted-time-body").html("");
+			}
+		} 
+		});
+
 	});
 
-	$('#pauseButton').click(function() {
+	$('#stopButton').click(function() {
 		$('#runner').runner('stop');
 		console.log($('#runner').runner('info'));
-		$('#pauseButton').hide();
+		$('#stopButton').hide();
 		$('#startButton').show();
 		$('#submitButton').show();
 
@@ -495,13 +530,49 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 		});
 	});
 
+	$('#resetButton').click(function() {
+		var areYouSure=confirm("Reset timer?");
+		
+		if(areYouSure==true){
+		
+			$('#runner').runner('stop');
+			console.log($('#runner').runner('info'));
+			$('#stopButton').hide();
+			$('#startButton').show();
+			$('#submitButton').hide();
+	
+			$.ajax
+			({
+			type: "POST",
+			url: "resetTimer.php",
+			data: "task_id="+$("#task_id").val(),
+			cache: false,
+			success: function(html)
+			{
+				$("#timer_feedback").html(html);
+				$("#runner").runner('setNewStartAt',0);
+				$("#runner").runner('reset');
+
+				$('#startButton').trigger('click');
+				
+			} 
+			});
+			
+		}else{
+			return false;
+		}
+
+
+
+	});
+
 
 	$('#submitButton').click(function() {
 		$('#runner').runner('stop');
 		console.log($('#runner').runner('info'));
 		$('#startButton').show();
 		$('#submitButton').hide();
-		$('#pauseButton').hide();
+		$('#stopButton').hide();
 		$('#timer_feedback').show();
 		$("#timer_feedback").fadeOut(3000);
 		$("#runner").fadeTo( 100, 0.01 );
@@ -509,14 +580,14 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 
 		$.ajax
 		({
-		type: "POST",
-		url: "pauseTimer.php",
-		data: "task_id="+$("#task_id").val(),
-		cache: false,
-		success: function(html)
-		{
-			$("#timer_feedback").html(html);
-		} 
+			type: "POST",
+			url: "pauseTimer.php",
+			data: "task_id="+$("#task_id").val(),
+			cache: false,
+			success: function(html)
+			{
+				$("#timer_feedback").html(html);
+			} 
 		});
 
 		
@@ -535,35 +606,55 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
             buttons: [
              {
                 label: 'Cancel',
+                cssClass: 'btn-default btn-sm btn',
                 action: function(dialogItself){
                     dialogItself.close();
 
-//					$('#runner').show();
-					$('#runner').runner('start');
-					$('#startButton').hide();
-					$('#pauseButton').show();
 					$('#submitButton').show();
 					$("#runner").fadeTo( 100, 1 );
 
-					console.log($('#runner').runner('info'));
+					console.log($('#runner').runner('info').running);
+//					alert($('#runner').runner('info').running);
 
-					$.ajax({
-					type: "POST",
-					url: "startTimer.php",
-					data: "task_id="+$("#task_id").val(),
-					cache: false,
-					success: function(html)
-					{
-						$("#timer_feedback").html(html);
-					} 
-					}); 
+					if($('#runner').runner('info').running==false){
+						$('#startButton').show();
+						$('#stopButton').hide();
+						$('#runner').runner('stop');
+						$.ajax({
+							type: "POST",
+							url: "pauseTimer.php",
+							data: "task_id="+$("#task_id").val(),
+							cache: false,
+							success: function(html)
+							{
+								$("#timer_feedback").html(html);
+							} 
+						}); 
+					}else{
+						$('#startButton').hide();
+						$('#stopButton').show();
+						$('#runner').runner('start');
+						$.ajax({
+							type: "POST",
+							url: "startTimer.php",
+							data: "task_id="+$("#task_id").val(),
+							cache: false,
+							success: function(html)
+							{
+								$("#timer_feedback").html(html);
+							} 
+						}); 
+					}
+
+
+
 
                 }
             },
             {
 	            id: 'submit-button',
                 label: 'Submit Time',
-                cssClass: 'btn-primary',
+                cssClass: 'btn-primary btn-sm btn',
                 action: function(dialogItself){
 	                if($('#time_amt').val().length<1){
 		                alert("Please enter time amount to log.");
