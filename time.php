@@ -264,13 +264,15 @@ milliseconds: false
 			});
 		}
 
+				$('#runner').fadeIn(250);
+
 
 		$("#task_link").html('<a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/projects/show/'+$("#task_id").val()+'" target=_blank><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a> <span class="hidden-xs"><a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/projects/show/'+$("#task_id").val()+'" target=_blank>View in LP</a></span>');
 
-		$("#unsubmitted-time").hide();
-		$("#task_comments_post").hide();
+		$("#unsubmitted-time").show();
+		$("#task_comments_post").show();
 		$("#task_comments").hide();
-		$("#runner").fadeTo( 500, 0.01 );
+//		$("#runner").fadeTo( 500, 0.01 );
 
 		/// We should also update the running timers area during this update
 		$.ajax
