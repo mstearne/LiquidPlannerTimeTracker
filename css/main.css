@@ -547,7 +547,7 @@ outline: 0 none;
 
 	}
 	
-	.glyphicon-remove-button {
+	.glyphiconRemoveStyle {
 		font-size: 25px!important; 
 		top:-60px!important;
 	}
@@ -720,7 +720,7 @@ and (max-width : 600px) {
 	    margin-bottom: 0px;
     }
 	
-	.glyphicon-remove-button {
+	.glyphiconRemoveStyle {
 		font-size: 15px!important; 
 		top:-35px!important;
 	}
@@ -828,7 +828,7 @@ and (max-width : 359px) {
 	#ttpopup {display: none}
 	
 
-	.glyphicon-remove-button {
+	.glyphiconRemoveStyle {
 		font-size: 15px!important; 
 		top:-50px!important;
 	}

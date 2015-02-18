@@ -47,7 +47,7 @@ $time  = time();
 
 foreach ($files as $file){
 	if (is_file($file)){
-		if ($time - filemtime($file) >= 60*30){ // 1/2 hour old
+		if ($time - filemtime($file) >= 60*60){ // 1/2 hour old
 			unlink($file);
 		}
 	}
