@@ -794,7 +794,7 @@ and (max-width : 359px) {
 	}
 	
 	div#unsubmitted-time-body ul li {
-		font-size: .8em;
+		font-size: .9em;
 	}
 	
 	form.form-horizontal fieldset legend { 
@@ -813,7 +813,7 @@ and (max-width : 359px) {
 	}
 
 	#unsubmitted-time {
-		font-size: .8em;
+		font-size: .9em;
 		
 	}
 

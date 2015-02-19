@@ -28,7 +28,7 @@ print "<ul>";
 			      if($timer->running==1){
 				      $running_timer=round(($timer->running_time + $timer->total_time)*3600000);
 //				      $running_timer_label="<strong>logging time for </strong> ".$task->name." in ".$pros->name;
-				      print "<span id=realtime-bottom></span> <em><strong>Currently running</strong></em>";
+				      print "<span id=realtime-bottom></span> <em style='color:white'>Currently running</em>";
 				      $gotRunningTimer=1;
 				      $running_timer_id=$task->id;
 				      $running_timer_name=$task->name;

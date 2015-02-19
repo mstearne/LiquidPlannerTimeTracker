@@ -268,7 +268,7 @@ milliseconds: false
 
 		$("#task_link").html('<a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/projects/show/'+$("#task_id").val()+'" target=_blank><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a> <span class="hidden-xs"><a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/projects/show/'+$("#task_id").val()+'" target=_blank>View in LP</a></span>');
 
-		$("#unsubmitted-time").show();
+		$("#unsubmitted-time").hide();
 		$("#task_comments_post").hide();
 		$("#task_comments").hide();
 		$("#runner").fadeTo( 500, 0.01 );
@@ -413,14 +413,14 @@ if($("#task_id").val()==null){
 
 		$.ajax
 		({
-		type: "POST",
+		type: "GET",
 		url: "getUnsubmittedTime.php",
 		cache: false,
 		dataType: "text",
 		success: function(html)
 		{
 			if(html!="false"){
-				$("#unsubmitted-time").hide();
+				$("#unsubmitted-time").show();
 				$("#unsubmitted-time-body").show();
 				$("#unsubmitted-time-body").html(html);
 				$("#unsubmitted-time").fadeIn(250);
@@ -509,29 +509,32 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 			success: function(html)
 			{
 				$("#timer_feedback").html(html);
+
+
+				$.ajax
+				({
+				type: "GET",
+				url: "getUnsubmittedTime.php",
+				cache: false,
+				dataType: "text",
+				success: function(html)
+				{
+					//								alert(html)
+					if(html!="false"){
+						$("#unsubmitted-time").hide();
+						$("#unsubmitted-time-body").show();
+						$("#unsubmitted-time-body").html(html);
+						$("#unsubmitted-time").fadeIn(250);
+					}else{
+						$("#unsubmitted-time").hide();
+						$("#unsubmitted-time-body").html("");
+					}
+				} 
+				});
+
 			} 
 		});
 
-		$.ajax
-		({
-		type: "POST",
-		url: "getUnsubmittedTime.php",
-		cache: false,
-		dataType: "text",
-		success: function(html)
-		{
-			//								alert(html)
-			if(html!="false"){
-				$("#unsubmitted-time").hide();
-				$("#unsubmitted-time-body").show();
-				$("#unsubmitted-time-body").html(html);
-				$("#unsubmitted-time").fadeIn(250);
-			}else{
-				$("#unsubmitted-time").hide();
-				$("#unsubmitted-time-body").html("");
-			}
-		} 
-		});
 
 	});
 
@@ -551,8 +554,31 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 		success: function(html)
 		{
 			$("#timer_feedback").html(html);
+			$.ajax
+			({
+			type: "GET",
+			url: "getUnsubmittedTime.php",
+			cache: false,
+			dataType: "text",
+			success: function(html)
+			{
+				//								alert(html)
+				if(html!="false"){
+					$("#unsubmitted-time").hide();
+					$("#unsubmitted-time-body").show();
+					$("#unsubmitted-time-body").html(html);
+					$("#unsubmitted-time").fadeIn(250);
+				}else{
+					$("#unsubmitted-time").hide();
+					$("#unsubmitted-time-body").html("");
+				}
+			} 
+			});
+
 		} 
 		});
+
+
 	});
 
 	$('#resetButton').click(function() {
