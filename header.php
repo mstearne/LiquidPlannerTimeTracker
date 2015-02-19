@@ -12,7 +12,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Path Liquid Planner Time Tracker</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 		<script src="js/bootstrap.min.js"></script>
