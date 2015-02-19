@@ -12,23 +12,20 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Path Liquid Planner Time Tracker</title>
         <meta name="description" content="">
-         <meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<script src="js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="css/bootstrap-theme.css">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<script src="js/bootstrap.min.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Cabin:400,700' rel='stylesheet' type='text/css'>
+	    <link rel="stylesheet" href="css/bootstrap-theme.css">
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-<script src="js/jquery.runner.js"></script>
-<link href="css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
-<script src="js/bootstrap-dialog.min.js"></script>
-<script src="js/jquery-dateFormat.min.js"></script>
-
-<link rel="stylesheet" href="js/chosen_v1/chosen.css">
- 
-
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+		<script src="js/jquery.runner.js"></script>
+		<link href="css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
+		<script src="js/bootstrap-dialog.min.js"></script>
+		<script src="js/jquery-dateFormat.min.js"></script>
+		<link rel="stylesheet" href="js/chosen_v1/chosen.css">
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     <body>

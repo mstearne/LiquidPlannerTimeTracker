@@ -64,7 +64,7 @@ textarea {
    ========================================================================== */
 
 body {
-    font: 16px/26px Helvetica, Helvetica Neue, Arial;
+    font: 16px/26px 'Cabin',Arial,Helvetica, sans-serif;
 }
 
 .wrapper {
@@ -832,6 +832,9 @@ and (max-width : 359px) {
 		font-size: 15px!important; 
 		top:-50px!important;
 	}
+	select {
+		width: 90%;
+	}
 
 }
 
@@ -876,3 +879,4 @@ and (min-width : 601px) {
 	
 
 }
+

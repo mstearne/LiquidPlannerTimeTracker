@@ -259,6 +259,7 @@ milliseconds: false
 			success: function(html)
 			{
 				$("#timer_feedback").html(html);
+				alert("ss")
 			} 
 			});
 		}
@@ -272,7 +273,12 @@ milliseconds: false
 		$("#task_comments_post").hide();
 		$("#task_comments").hide();
 		$("#runner").fadeTo( 500, 0.01 );
-
+console.log("Change_task task_id dropdown val()="+$("#task_id").val());
+/*
+if($("#task_id").val()==null){
+	$("#task_id").val(startupTask);
+}
+*/
 		/// We should also update the running timers area during this update
 		$.ajax
 		({
@@ -282,7 +288,12 @@ milliseconds: false
 			cache: false,
 			dataType: "json",
 			success: function(taskJson){
-
+				
+				
+				/// this is a bug that needs fixing. The location needs to be reloaded if the task_id from the URL is passed in. For some re 
+				if(taskJson.error=="NotFound"){
+					location.reload(true);
+				}
 
 				var tmpTime=0;
 				if(!taskJson.timer){
@@ -344,27 +355,40 @@ milliseconds: false
 				}
 				
 				hoursLogged=0;
-			    for (i=0;i<taskJson.assignments.length;i++) {
-				    hoursLogged=hoursLogged+taskJson.assignments[i].hours_logged;
-			    }
+				if(!taskJson.assignments){
+					hoursLogged=0;
+				}else{
+				    for (i=0;i<taskJson.assignments.length;i++) {
+					    hoursLogged=hoursLogged+taskJson.assignments[i].hours_logged;
+				    }
+				}
 			    
 			    effortOutput="<em>Logged</em>: "+hoursLogged.toFixed(2)+" hours";
 				
 				
-			    commentsOutput="";
-			    for (i=0;i<taskJson.comments.length;i++) {	    
-			        commentsOutput+='<div><span class="small-date">' + jQuery.format.prettyDate(taskJson.comments[i].updated_at) + "</span> " + taskJson.comments[i].comment + "</div>";
-			    }
-
-			    documentsOutput="";
-			    for (i=0;i<taskJson.documents.length;i++) {
-				    if(i==0){
-				        documentsOutput+='<h3 class="lighter-text">Task Attachments</h3>';
+				commentsOutput="";
+			    if(!taskJson.comments){
+				    commentsOutput="";
+			    }else{
+				    for (i=0;i<taskJson.comments.length;i++) {	    
+				        commentsOutput+='<div><span class="small-date">' + jQuery.format.prettyDate(taskJson.comments[i].updated_at) + "</span> " + taskJson.comments[i].comment + "</div>";
 				    }
-
-			        documentsOutput+='<p><a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/item/'+$("#task_id").val()+'/documents/'+taskJson.documents[i].id+'/download" target="_blank">'+openFile(taskJson.documents[i].file_name,$("#task_id").val(),taskJson.documents[i].id)+' '+taskJson.documents[i].file_name+'</a></p>';
-			        
 			    }
+
+				documentsOutput="";
+			    if(!taskJson.documents){
+				    documentsOutput="";
+			    }else{
+				    for (i=0;i<taskJson.documents.length;i++) {
+					    if(i==0){
+					        documentsOutput+='<h3 class="lighter-text">Task Attachments</h3>';
+					    }
+	
+				        documentsOutput+='<p><a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/item/'+$("#task_id").val()+'/documents/'+taskJson.documents[i].id+'/download" target="_blank">'+openFile(taskJson.documents[i].file_name,$("#task_id").val(),taskJson.documents[i].id)+' '+taskJson.documents[i].file_name+'</a></p>';
+				        
+				    }
+			    }
+
 
 				//alert("json "+taskTimeMS);
 				$("#task_comments_post").show();
@@ -376,7 +400,7 @@ milliseconds: false
 				//$("#realtime").text("<?=$running_timer?>");
 								
 				$("#taskemailattachment").show();
-				$("#taskemailattachmentlabel").html('<a href="mailto:'+$("#task_id").val()+'-<?=$pathLPAccountEmailID?>@in.liquidplanner.com"><span class="glyphicon glyphicon-paperclip"></span> Send attachment to task</a><br>&nbsp;');
+				$("#taskemailattachmentlabel").html('<a href="mailto:'+$("#task_id").val()+'-<?=$pathLPAccountEmailID?>@in.liquidplanner.com"><span class="glyphicon glyphicon-arrow-up"></span> Send attachment to task</a><br>&nbsp;');
 				$("#taskemailattachmentlabel").show();
 
 				$("#task_documents").html(documentsOutput);
