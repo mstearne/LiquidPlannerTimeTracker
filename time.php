@@ -259,7 +259,6 @@ milliseconds: false
 			success: function(html)
 			{
 				$("#timer_feedback").html(html);
-				alert("ss")
 			} 
 			});
 		}
@@ -292,7 +291,7 @@ if($("#task_id").val()==null){
 				
 				/// this is a bug that needs fixing. The location needs to be reloaded if the task_id from the URL is passed in. For some re 
 				if(taskJson.error=="NotFound"){
-					location.reload(true);
+//					location.reload(true);
 				}
 
 				var tmpTime=0;
