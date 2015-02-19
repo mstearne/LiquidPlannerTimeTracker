@@ -27,6 +27,8 @@
 		<script src="js/jquery-dateFormat.min.js"></script>
 		<link rel="stylesheet" href="js/chosen_v1/chosen.css">
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+		<script src="https://cdn.flurry.com/js/flurry.js"></script><script>FlurryAgent.startSession("GYHWWJR6STJDM87896TW");</script>
     </head>
     <body>
         <!--[if lt IE 7]>
