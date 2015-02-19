@@ -589,7 +589,8 @@ outline: 0 none;
 
 
 #timer_feedback { 
-	font-size: 1em;
+	font-family: 'Cabin';
+	font-size: 1.2em;
 	left:5px; 
 	position: absolute;
 	top:70px; color: white; 

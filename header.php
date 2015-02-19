@@ -50,4 +50,4 @@
 
         <div class="main-container">
             <div class="main wrapper clearfix">
-	            <div class="text-glow" id="timer_feedback"></div>
+	            <div id="timer_feedback"></div>

@@ -3,17 +3,6 @@
 $timers=$lp->get("/workspaces/{$lp->workspace_id}/my_timers");
 
 
-/*
-foreach($timers as $i => $timer) {
-	if(!file_exists("cache/timerID-".$timer->item_id)){
-		$invalidateCache=1;		
-	}
-}
-
-print $invalidateCache;
-//exit();
-*/
-
 if(count($timers)>1){
 print "<ul>";
 

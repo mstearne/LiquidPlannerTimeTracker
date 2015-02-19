@@ -419,7 +419,6 @@ if($("#task_id").val()==null){
 		dataType: "text",
 		success: function(html)
 		{
-			//								alert(html)
 			if(html!="false"){
 				$("#unsubmitted-time").hide();
 				$("#unsubmitted-time-body").show();
@@ -446,9 +445,7 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 	$('#timer_feedback').html("<?=$_REQUEST['message']?>");
 	
 	$('#timer_feedback').show();
-	  $("#timer_feedback").fadeOut(3000);
 	
-	setTimeout(function(){ $('#timer_feedback').html("")}, 4000);
 	
 	<? } ?>
 	
@@ -479,13 +476,17 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 	<? } ?>
 
 	$(document).ajaxSend(function(event, request, settings) {
+		$('#timer_feedback').html("");
 	  $('#loading-indicator').show();
 	});
 	
 	$(document).ajaxComplete(function(event, request, settings) {
 	  $('#loading-indicator').hide();
 	  $('#timer_feedback').show();
-	  $("#timer_feedback").fadeOut(3000);
+  	  
+
+  	  setTimeout(function(){ $("#timer_feedback").fadeOut(500)}, 3000);
+
 	  
 	});
 
@@ -598,7 +599,6 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 		$('#submitButton').hide();
 		$('#stopButton').hide();
 		$('#timer_feedback').show();
-		$("#timer_feedback").fadeOut(3000);
 		$("#runner").fadeTo( 100, 0.01 );
 		
 
