@@ -96,6 +96,8 @@ body {
 }
 
 .title {
+	font-family: 'Cabin';
+	font-weight: bold;
     color: white;
 }
 
@@ -764,7 +766,7 @@ and (max-width : 359px) {
 	
 	
 	h1 {
-	font-size: 1.4em!important;	
+	font-size: 2em!important;	
 	}
 	
 	.status-area {
