@@ -268,16 +268,11 @@ milliseconds: false
 
 		$("#task_link").html('<a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/projects/show/'+$("#task_id").val()+'" target=_blank><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a> <span class="hidden-xs"><a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/projects/show/'+$("#task_id").val()+'" target=_blank>View in LP</a></span>');
 
-		$("#unsubmitted-time").hide();
+		$("#unsubmitted-time").show();
 		$("#task_comments_post").hide();
 		$("#task_comments").hide();
 		$("#runner").fadeTo( 500, 0.01 );
-console.log("Change_task task_id dropdown val()="+$("#task_id").val());
-/*
-if($("#task_id").val()==null){
-	$("#task_id").val(startupTask);
-}
-*/
+
 		/// We should also update the running timers area during this update
 		$.ajax
 		({
@@ -287,12 +282,7 @@ if($("#task_id").val()==null){
 			cache: false,
 			dataType: "json",
 			success: function(taskJson){
-				
-				
-				/// this is a bug that needs fixing. The location needs to be reloaded if the task_id from the URL is passed in. For some re 
-				if(taskJson.error=="NotFound"){
-//					location.reload(true);
-				}
+
 
 				var tmpTime=0;
 				if(!taskJson.timer){
@@ -354,40 +344,27 @@ if($("#task_id").val()==null){
 				}
 				
 				hoursLogged=0;
-				if(!taskJson.assignments){
-					hoursLogged=0;
-				}else{
-				    for (i=0;i<taskJson.assignments.length;i++) {
-					    hoursLogged=hoursLogged+taskJson.assignments[i].hours_logged;
-				    }
-				}
+			    for (i=0;i<taskJson.assignments.length;i++) {
+				    hoursLogged=hoursLogged+taskJson.assignments[i].hours_logged;
+			    }
 			    
 			    effortOutput="<em>Logged</em>: "+hoursLogged.toFixed(2)+" hours";
 				
 				
-				commentsOutput="";
-			    if(!taskJson.comments){
-				    commentsOutput="";
-			    }else{
-				    for (i=0;i<taskJson.comments.length;i++) {	    
-				        commentsOutput+='<div><span class="small-date">' + jQuery.format.prettyDate(taskJson.comments[i].updated_at) + "</span> " + taskJson.comments[i].comment + "</div>";
-				    }
+			    commentsOutput="";
+			    for (i=0;i<taskJson.comments.length;i++) {	    
+			        commentsOutput+='<div><span class="small-date">' + jQuery.format.prettyDate(taskJson.comments[i].updated_at) + "</span> " + taskJson.comments[i].comment + "</div>";
 			    }
 
-				documentsOutput="";
-			    if(!taskJson.documents){
-				    documentsOutput="";
-			    }else{
-				    for (i=0;i<taskJson.documents.length;i++) {
-					    if(i==0){
-					        documentsOutput+='<h3 class="lighter-text">Task Attachments</h3>';
-					    }
-	
-				        documentsOutput+='<p><a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/item/'+$("#task_id").val()+'/documents/'+taskJson.documents[i].id+'/download" target="_blank">'+openFile(taskJson.documents[i].file_name,$("#task_id").val(),taskJson.documents[i].id)+' '+taskJson.documents[i].file_name+'</a></p>';
-				        
+			    documentsOutput="";
+			    for (i=0;i<taskJson.documents.length;i++) {
+				    if(i==0){
+				        documentsOutput+='<h3 class="lighter-text">Task Attachments</h3>';
 				    }
-			    }
 
+			        documentsOutput+='<p><a href="https://app.liquidplanner.com/space/<?=$lp->workspace_id?>/item/'+$("#task_id").val()+'/documents/'+taskJson.documents[i].id+'/download" target="_blank">'+openFile(taskJson.documents[i].file_name,$("#task_id").val(),taskJson.documents[i].id)+' '+taskJson.documents[i].file_name+'</a></p>';
+			        
+			    }
 
 				//alert("json "+taskTimeMS);
 				$("#task_comments_post").show();
@@ -399,7 +376,7 @@ if($("#task_id").val()==null){
 				//$("#realtime").text("<?=$running_timer?>");
 								
 				$("#taskemailattachment").show();
-				$("#taskemailattachmentlabel").html('<a href="mailto:'+$("#task_id").val()+'-<?=$pathLPAccountEmailID?>@in.liquidplanner.com"><span class="glyphicon glyphicon-arrow-up"></span> Send attachment to task</a><br>&nbsp;');
+				$("#taskemailattachmentlabel").html('<a href="mailto:'+$("#task_id").val()+'-<?=$pathLPAccountEmailID?>@in.liquidplanner.com"><span class="glyphicon glyphicon-paperclip"></span> Send attachment to task</a><br>&nbsp;');
 				$("#taskemailattachmentlabel").show();
 
 				$("#task_documents").html(documentsOutput);
@@ -413,14 +390,15 @@ if($("#task_id").val()==null){
 
 		$.ajax
 		({
-		type: "GET",
+		type: "POST",
 		url: "getUnsubmittedTime.php",
 		cache: false,
 		dataType: "text",
 		success: function(html)
 		{
+			//								alert(html)
 			if(html!="false"){
-				$("#unsubmitted-time").show();
+				$("#unsubmitted-time").hide();
 				$("#unsubmitted-time-body").show();
 				$("#unsubmitted-time-body").html(html);
 				$("#unsubmitted-time").fadeIn(250);
@@ -445,7 +423,9 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 	$('#timer_feedback').html("<?=$_REQUEST['message']?>");
 	
 	$('#timer_feedback').show();
+	  $("#timer_feedback").fadeOut(3000);
 	
+	setTimeout(function(){ $('#timer_feedback').html("")}, 4000);
 	
 	<? } ?>
 	
@@ -476,17 +456,13 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 	<? } ?>
 
 	$(document).ajaxSend(function(event, request, settings) {
-		$('#timer_feedback').html("");
 	  $('#loading-indicator').show();
 	});
 	
 	$(document).ajaxComplete(function(event, request, settings) {
 	  $('#loading-indicator').hide();
 	  $('#timer_feedback').show();
-  	  
-
-  	  setTimeout(function(){ $("#timer_feedback").fadeOut(500)}, 3000);
-
+	  $("#timer_feedback").fadeOut(3000);
 	  
 	});
 
@@ -509,32 +485,29 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 			success: function(html)
 			{
 				$("#timer_feedback").html(html);
-
-
-				$.ajax
-				({
-				type: "GET",
-				url: "getUnsubmittedTime.php",
-				cache: false,
-				dataType: "text",
-				success: function(html)
-				{
-					//								alert(html)
-					if(html!="false"){
-						$("#unsubmitted-time").hide();
-						$("#unsubmitted-time-body").show();
-						$("#unsubmitted-time-body").html(html);
-						$("#unsubmitted-time").fadeIn(250);
-					}else{
-						$("#unsubmitted-time").hide();
-						$("#unsubmitted-time-body").html("");
-					}
-				} 
-				});
-
 			} 
 		});
 
+		$.ajax
+		({
+		type: "POST",
+		url: "getUnsubmittedTime.php",
+		cache: false,
+		dataType: "text",
+		success: function(html)
+		{
+			//								alert(html)
+			if(html!="false"){
+				$("#unsubmitted-time").hide();
+				$("#unsubmitted-time-body").show();
+				$("#unsubmitted-time-body").html(html);
+				$("#unsubmitted-time").fadeIn(250);
+			}else{
+				$("#unsubmitted-time").hide();
+				$("#unsubmitted-time-body").html("");
+			}
+		} 
+		});
 
 	});
 
@@ -554,31 +527,8 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 		success: function(html)
 		{
 			$("#timer_feedback").html(html);
-			$.ajax
-			({
-			type: "GET",
-			url: "getUnsubmittedTime.php",
-			cache: false,
-			dataType: "text",
-			success: function(html)
-			{
-				//								alert(html)
-				if(html!="false"){
-					$("#unsubmitted-time").hide();
-					$("#unsubmitted-time-body").show();
-					$("#unsubmitted-time-body").html(html);
-					$("#unsubmitted-time").fadeIn(250);
-				}else{
-					$("#unsubmitted-time").hide();
-					$("#unsubmitted-time-body").html("");
-				}
-			} 
-			});
-
 		} 
 		});
-
-
 	});
 
 	$('#resetButton').click(function() {
@@ -625,6 +575,7 @@ $('#ttpopup').popupWindow({ height:(screen.height-50), width:360, top:0, left:(s
 		$('#submitButton').hide();
 		$('#stopButton').hide();
 		$('#timer_feedback').show();
+		$("#timer_feedback").fadeOut(3000);
 		$("#runner").fadeTo( 100, 0.01 );
 		
 

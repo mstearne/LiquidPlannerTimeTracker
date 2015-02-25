@@ -127,6 +127,10 @@
       return format(value, this.settings);
     };
 
+    Runner.prototype.setNewStartAt = function(value) {
+      this.settings.startAt=value;
+    };
+
     Runner.prototype.update = function() {
       var countdown, delta, settings, stopAt, time;
       if (!this.updating) {
@@ -135,13 +139,19 @@
         time = _$.now();
         stopAt = settings.stopAt;
         countdown = settings.countdown;
+        
         delta = time - this.lastTime;
         this.lastTime = time;
+//	    console.log("lastTime="+this.lastTime);
+
         if (countdown) {
           this.total -= delta;
         } else {
           this.total += delta;
         }
+
+//	    console.log("total="+this.total);
+        
         if (stopAt !== null && ((countdown && this.total <= stopAt) || (!countdown && this.total >= stopAt))) {
           this.total = stopAt;
           this.finished = true;
@@ -161,7 +171,7 @@
       var step;
       if (!this.running) {
         this.running = true;
-        if (!this.startTime || this.finished) {
+        if (!this.startTime || this.finished ) {
           this.reset();
         }
         this.lastTime = _$.now();
@@ -274,6 +284,11 @@
       case 'lap':
         if (runner) {
           return runner.lap();
+        }
+        break;
+      case 'setNewStartAt':
+        if (runner) {
+          runner.setNewStartAt(options);
         }
         break;
       case 'start':

@@ -6,8 +6,7 @@ scriptTimer("in shared.php");
 $pathLPAccountEmailID="ced094287fa4ab40846c4ac26b546750";
 $LPAdminAccountUsername="mstearne@pathinteractive.com";
 $LPAdminAccountPassword="Pathinc123";
-//$LPIgnoredProjects=array()
-$LPIncludedProjects=array("16782206");
+$LPIncludedProjects=array("16782204","16782205","16782206");
 
 session_start();
 
@@ -48,7 +47,7 @@ $time  = time();
 
 foreach ($files as $file){
 	if (is_file($file)){
-		if ($time - filemtime($file) >= 60*30){ // 1/2 hour old
+		if ($time - filemtime($file) >= 60*60){ // 1/2 hour old
 			unlink($file);
 		}
 	}

@@ -3,17 +3,6 @@
 $timers=$lp->get("/workspaces/{$lp->workspace_id}/my_timers");
 
 
-/*
-foreach($timers as $i => $timer) {
-	if(!file_exists("cache/timerID-".$timer->item_id)){
-		$invalidateCache=1;		
-	}
-}
-
-print $invalidateCache;
-//exit();
-*/
-
 if(count($timers)>1){
 print "<ul>";
 
@@ -35,11 +24,11 @@ print "<ul>";
 		///// ------------------------------------ /////
 	        foreach($projects as $x => $pros) {
 		        if($pros->id==$task->project_id){
-			      print "<li>".$task->name." in ".$pros->name." for ".$pros->client_name." Time: ";
+			      print "<li><a href='?task_id={$task->id}' class='black-link'>".$task->name." in ".$pros->name." for ".$pros->client_name."</a> Time: ";
 			      if($timer->running==1){
 				      $running_timer=round(($timer->running_time + $timer->total_time)*3600000);
 //				      $running_timer_label="<strong>logging time for </strong> ".$task->name." in ".$pros->name;
-				      print "<span id=realtime-bottom></span> <em><strong>Currently running</strong></em>";
+				      print "<span id=realtime-bottom></span> <em style='color:white'>Currently running</em>";
 				      $gotRunningTimer=1;
 				      $running_timer_id=$task->id;
 				      $running_timer_name=$task->name;
